@@ -1,33 +1,6 @@
 package hummel
 
-import kotlin.math.hypot
-
 fun <T> Array<T>.deepEquals(other: Array<T>): Boolean = this.contentDeepEquals(other)
-
-data class Point(val x: Int, val y: Int) {
-	fun distanceTo(p: Point): Double = distanceTo(p.x, p.y)
-	private fun distanceTo(x: Int, y: Int): Double = hypot((this.x - x).toDouble(), (this.y - y).toDouble())
-}
-
-data class VoronoiCluster(val site: Point, val points: Array<Point>) {
-	override fun equals(other: Any?): Boolean {
-		if (this === other) return true
-		if (javaClass != other?.javaClass) return false
-
-		other as VoronoiCluster
-
-		if (site != other.site) return false
-		if (!points.contentEquals(other.points)) return false
-
-		return true
-	}
-
-	override fun hashCode(): Int {
-		var result = site.hashCode()
-		result = 31 * result + points.contentHashCode()
-		return result
-	}
-}
 
 fun centroidOf(points: Array<Point>): Point {
 	var centerX = 0.0
@@ -62,7 +35,8 @@ fun splitForVoronoiClusters(points: Array<Point>, sites: Array<Point>): Array<Vo
 fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<VoronoiCluster> {
 	var clusters: Array<VoronoiCluster>
 
-	@Suppress("NAME_SHADOWING") var sites = sites
+	@Suppress("NAME_SHADOWING")
+	var sites = sites
 	var i = 0
 	do {
 		i++
