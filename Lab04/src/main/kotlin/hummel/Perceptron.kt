@@ -99,5 +99,4 @@ class Perceptron(
 	private fun <E> List<E>.randomItem(action: (item: E) -> Unit) {
 		action(this[random.nextInt(this.size)])
 	}
-
 }

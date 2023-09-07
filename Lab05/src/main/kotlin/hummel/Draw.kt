@@ -23,6 +23,7 @@ fun draw(points: List<Point>, xRange: Range, yRange: Range, chartFunction: Chart
 			series2
 		}.add(x, y)
 	}
+
 	xRange.forEachWithStep(0.01) {
 		series3.add(it, chartFunction(it))
 	}

@@ -13,6 +13,7 @@ private val INITIAL_COEFFICIENTS = PotentialCoefficients(0.0, 0.0, 0.0, 0.0)
 
 typealias PotentialDecisionFunction = (UnclassifiedPoint) -> Point
 typealias ChartFunction = (Double) -> Double
+
 private typealias PotentialFunction = (Point) -> Double
 
 data class PotentialCoefficients(val first: Double, val second: Double, val third: Double, val fourth: Double) {

@@ -25,4 +25,3 @@ fun main() {
 	val areas = getAreas(y1Values, y2Values, STEP)
 	draw(xValues, y1Values, y2Values, areas)
 }
-

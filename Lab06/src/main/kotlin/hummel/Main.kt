@@ -10,7 +10,6 @@ import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.WindowConstants
 
-
 val SAMPLE_DATA: Array<DoubleArray> = arrayOf(
 	doubleArrayOf(.0, 5.0, .5, 2.0),
 	doubleArrayOf(5.0, .0, 1.0, .6),

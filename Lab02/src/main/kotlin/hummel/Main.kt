@@ -22,4 +22,3 @@ fun main() {
 	image = drawClustersOnImage(IMAGE_SIZE, clusters)
 	ImageIO.write(image, "png", File("images/maximin-${pointCount}-with-k-means.png"))
 }
-
