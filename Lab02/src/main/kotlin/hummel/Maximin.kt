@@ -2,15 +2,23 @@ package hummel
 
 import kotlin.math.hypot
 
-data class VoronoiCluster(val site: Point, val points: Array<Point>) {
+data class Cluster(val site: Point, val points: Array<Point>) {
 	override fun equals(other: Any?): Boolean {
-		if (this === other) return true
-		if (javaClass != other?.javaClass) return false
+		if (this === other) {
+			return true
+		}
+		if (javaClass != other?.javaClass) {
+			return false
+		}
 
-		other as VoronoiCluster
+		other as Cluster
 
-		if (site != other.site) return false
-		if (!points.contentEquals(other.points)) return false
+		if (site != other.site) {
+			return false
+		}
+		if (!points.contentEquals(other.points)) {
+			return false
+		}
 
 		return true
 	}
@@ -32,24 +40,24 @@ data class Distance(var a: Point, var b: Point) {
 	val length: Double = a.distanceTo(b)
 }
 
-fun clusterByMaximin(points: Array<Point>): Array<VoronoiCluster> {
-	var newSite: Point? = points.randomElement()
+fun clusterByMaximin(points: Array<Point>): Array<Cluster> {
+	var newSite = points.randomElement()
 	val sites = mutableListOf(
 		newSite!!, newSite.farthestPointOf(points)
 	)
-	var clusters = splitForVoronoiClusters(points, sites)
+	var clusters = splitForClusters(points, sites)
 	while (newSite != null) {
 		newSite = chooseNewSite(clusters)
 		if (newSite != null) {
 			sites.add(newSite)
-			clusters = splitForVoronoiClusters(points, sites)
+			clusters = splitForClusters(points, sites)
 		}
 	}
 	return clusters
 }
 
 
-fun chooseNewSite(clusters: Array<VoronoiCluster>): Point? {
+fun chooseNewSite(clusters: Array<Cluster>): Point? {
 	val candidateDistances = mutableListOf<Distance>()
 	for ((site, clusterPoints) in clusters) {
 		candidateDistances.add(Distance(site, site.farthestPointOf(clusterPoints)))
@@ -65,7 +73,7 @@ fun averageSitesDistanceOf(sites: Array<Point>): Double {
 	return distanceSum / (sites.size * sites.size)
 }
 
-fun splitForVoronoiClusters(points: Array<Point>, sites: List<Point>): Array<VoronoiCluster> {
+fun splitForClusters(points: Array<Point>, sites: List<Point>): Array<Cluster> {
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
 	for (point in points) {
 		var n = 0
@@ -77,6 +85,6 @@ fun splitForVoronoiClusters(points: Array<Point>, sites: List<Point>): Array<Vor
 		clusters[n].add(point)
 	}
 	return Array(sites.size) { index ->
-		VoronoiCluster(sites[index], clusters[index].toTypedArray())
+		Cluster(sites[index], clusters[index].toTypedArray())
 	}
 }

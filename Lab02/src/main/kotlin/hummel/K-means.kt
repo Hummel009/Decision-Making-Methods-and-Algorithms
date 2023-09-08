@@ -15,7 +15,7 @@ fun centroidOf(points: Array<Point>): Point {
 	return Point(centerX.toInt(), centerY.toInt())
 }
 
-fun splitForVoronoiClusters(points: Array<Point>, sites: Array<Point>): Array<VoronoiCluster> {
+fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> {
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
 	for (point in points) {
 		var n = 0
@@ -27,13 +27,13 @@ fun splitForVoronoiClusters(points: Array<Point>, sites: Array<Point>): Array<Vo
 		clusters[n].add(point)
 	}
 	return Array(sites.size) { index ->
-		VoronoiCluster(sites[index], clusters[index].toTypedArray())
+		Cluster(sites[index], clusters[index].toTypedArray())
 	}
 }
 
 
-fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<VoronoiCluster> {
-	var clusters: Array<VoronoiCluster>
+fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<Cluster> {
+	var clusters: Array<Cluster>
 
 	@Suppress("NAME_SHADOWING")
 	var sites = sites
@@ -41,7 +41,7 @@ fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<VoronoiClu
 	do {
 		i++
 		val oldSites = sites
-		clusters = splitForVoronoiClusters(points, oldSites)
+		clusters = splitForClusters(points, oldSites)
 		sites = Array(oldSites.size) { index -> centroidOf(clusters[index].points) }
 	} while (!oldSites.deepEquals(sites) && i < 100)
 	return clusters

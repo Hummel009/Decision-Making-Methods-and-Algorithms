@@ -32,7 +32,7 @@ val COLORS: Array<Color> = arrayOf(
 	Color(0x800000)
 )
 
-fun drawClustersOnImage(imageSize: Int, clusters: Array<VoronoiCluster>): BufferedImage {
+fun drawClustersOnImage(imageSize: Int, clusters: Array<Cluster>): BufferedImage {
 	val image = BufferedImage(imageSize, imageSize, BufferedImage.TYPE_INT_RGB)
 	val graphics = image.createGraphics()
 	val colors = Array(clusters.size) { index -> COLORS[index % COLORS.size] }

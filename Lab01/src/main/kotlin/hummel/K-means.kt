@@ -2,22 +2,32 @@ package hummel
 
 import kotlin.math.hypot
 
+// сравниваем содержимое массивов
 fun <T> Array<T>.deepEquals(other: Array<T>): Boolean = this.contentDeepEquals(other)
 
+// класс точки, функция расстояния погипотенузе
 data class Point(val x: Int, val y: Int) {
 	fun distanceTo(p: Point): Double = distanceTo(p.x, p.y)
 	private fun distanceTo(x: Int, y: Int): Double = hypot((this.x - x).toDouble(), (this.y - y).toDouble())
 }
 
-data class VoronoiCluster(val site: Point, val points: Array<Point>) {
+data class Cluster(val site: Point, val points: Array<Point>) {
 	override fun equals(other: Any?): Boolean {
-		if (this === other) return true
-		if (javaClass != other?.javaClass) return false
+		if (this === other) {
+			return true
+		}
+		if (javaClass != other?.javaClass) {
+			return false
+		}
 
-		other as VoronoiCluster
+		other as Cluster
 
-		if (site != other.site) return false
-		if (!points.contentEquals(other.points)) return false
+		if (site != other.site) {
+			return false
+		}
+		if (!points.contentEquals(other.points)) {
+			return false
+		}
 
 		return true
 	}
@@ -29,6 +39,7 @@ data class VoronoiCluster(val site: Point, val points: Array<Point>) {
 	}
 }
 
+// Функция для вычисления центроида (средней точки) класса
 fun centroidOf(points: Array<Point>): Point {
 	var centerX = 0.0
 	var centerY = 0.0
@@ -42,8 +53,11 @@ fun centroidOf(points: Array<Point>): Point {
 	return Point(centerX.toInt(), centerY.toInt())
 }
 
-fun splitForVoronoiClusters(points: Array<Point>, sites: Array<Point>): Array<VoronoiCluster> {
+// Функция для разделения точек на кластеры
+fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> {
+	// Создание массива кластеров
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
+	// Проход по всем точкам и определение, к какому кластеру они принадлежат
 	for (point in points) {
 		var n = 0
 		for (i in 0..sites.lastIndex) {
@@ -53,22 +67,27 @@ fun splitForVoronoiClusters(points: Array<Point>, sites: Array<Point>): Array<Vo
 		}
 		clusters[n].add(point)
 	}
+	// Создание массива кластеров с информацией о кластерах
 	return Array(sites.size) { index ->
-		VoronoiCluster(sites[index], clusters[index].toTypedArray())
+		Cluster(sites[index], clusters[index].toTypedArray())
 	}
 }
 
+// Функция для кластеризации методом k-средних
+fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<Cluster> {
+	var clusters: Array<Cluster>
 
-fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<VoronoiCluster> {
-	var clusters: Array<VoronoiCluster>
-
-	@Suppress("NAME_SHADOWING") var sites = sites
+	@Suppress("NAME_SHADOWING")
+	// Инициализация переменной i для отслеживания количества итераций
+	var sites = sites
 	var i = 0
 	do {
 		i++
 		val oldSites = sites
-		clusters = splitForVoronoiClusters(points, oldSites)
-		sites = Array(oldSites.size) { index -> centroidOf(clusters[index].points) }
-	} while (!oldSites.deepEquals(sites) && i < 100)
+		// Разделение точек на кластеры
+		clusters = splitForClusters(points, oldSites)
+		// Пересчет положений центров кластеров
+		sites = Array(oldSites.size) { centroidOf(clusters[it].points) }
+	} while (!oldSites.deepEquals(sites) && i < 100) //пока не кончатся изменения или не минёт 100 операций
 	return clusters
 }
