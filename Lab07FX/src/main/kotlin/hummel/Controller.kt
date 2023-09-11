@@ -4,7 +4,6 @@ import hummel.grammar.Element
 import hummel.grammar.ElementGenerator
 import hummel.grammar.Line
 import hummel.grammar.Point
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.scene.canvas.Canvas
 import javafx.scene.control.Label
@@ -34,8 +33,8 @@ class Controller {
 		resultLabel.isVisible = true
 	}
 
-	fun generate(actionEvent: ActionEvent) {
-		clean(null)
+	fun generate() {
+		clean()
 		val element = generator.generateElement()
 		drawer.draw(element)
 
@@ -45,7 +44,7 @@ class Controller {
 		}
 	}
 
-	fun validate(actionEvent: ActionEvent) {
+	fun validate() {
 		if (generator.isImageCorrect(drawedElements)) {
 			resultLabel.text = "Image is correct."
 		} else {
@@ -53,7 +52,7 @@ class Controller {
 		}
 	}
 
-	fun clean(actionEvent: ActionEvent?) {
+	fun clean() {
 		drawer.cleanCanvas()
 		drawedElements.clear()
 		drawedLines.clear()

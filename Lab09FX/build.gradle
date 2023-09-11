@@ -14,6 +14,11 @@ repositories {
 	mavenCentral()
 }
 
+dependencies {
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation 'org.encog:encog-core:3.2.0'
+}
+
 kotlin {
 	jvmToolchain(11)
 }
