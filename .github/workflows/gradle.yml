@@ -129,7 +129,7 @@ jobs:
           name: compiled-artifact6
           path: ./Lab06/build/libs/*.jar
 
-  build7:
+  build7FX:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -142,14 +142,14 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: ./Lab07
+          build-root-directory: ./Lab07FX
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: compiled-artifact7
-          path: ./Lab07/build/libs/*.jar
+          name: compiled-artifact7FX
+          path: ./Lab07FX/build/libs/*.jar
 
-  build8:
+  build8FX:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
@@ -162,12 +162,12 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: ./Lab08
+          build-root-directory: ./Lab08FX
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: compiled-artifact8
-          path: ./Lab08/build/libs/*.jar
+          name: compiled-artifact8FX
+          path: ./Lab08FX/build/libs/*.jar
 
   build9:
     runs-on: windows-latest
