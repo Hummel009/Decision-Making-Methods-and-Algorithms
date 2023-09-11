@@ -128,3 +128,63 @@ jobs:
         with:
           name: compiled-artifact6
           path: ./Lab06/build/libs/*.jar
+
+  build7:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: temurin
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: ./Lab07
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-artifact7
+          path: ./Lab07/build/libs/*.jar
+
+  build8:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: temurin
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: ./Lab08
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-artifact8
+          path: ./Lab08/build/libs/*.jar
+
+  build9:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: temurin
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: ./Lab09
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-artifact9
+          path: ./Lab09/build/libs/*.jar
