@@ -19,8 +19,9 @@ fun doubleArrayFromRange(start: Double, end: Double, step: Double): DoubleArray 
 
 fun gaussianRandomNumber(mean: Double, derivation: Double): Double = RANDOM.nextGaussian() * derivation + mean
 
-fun generateVector(length: Int, mean: Double, derivation: Double): DoubleArray =
-	DoubleArray(length) { gaussianRandomNumber(mean, derivation) }
+fun generateVector(length: Int, mean: Double, derivation: Double): DoubleArray {
+	return DoubleArray(length) { gaussianRandomNumber(mean, derivation) }
+}
 
 fun getInterval(firstVector: DoubleArray, secondVector: DoubleArray): Pair<Double, Double> {
 	val allPoints = firstVector.plus(secondVector)
@@ -35,7 +36,9 @@ fun gaussian(x: Double, mean: Double, derivation: Double): Double {
 
 fun generateProbabilityDensityFunction(
 	vectorMean: Double, vectorDerivation: Double, probability: Double
-): (Double) -> Double = { x: Double -> gaussian(x, vectorMean, vectorDerivation) * probability }
+): (Double) -> Double {
+	return { x: Double -> gaussian(x, vectorMean, vectorDerivation) * probability }
+}
 
 fun getAreas(y1Values: DoubleArray, y2Values: DoubleArray, step: Double): Pair<Double, Double> {
 	var detectionMistake = 0.0

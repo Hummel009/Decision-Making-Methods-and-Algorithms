@@ -14,10 +14,12 @@ const val DERIVATION_2: Double = 3.0
 fun main() {
 	val firstVector = generateVector(NUMBERS_COUNT, MEAN_1, DERIVATION_1)
 	val secondVector = generateVector(NUMBERS_COUNT, MEAN_2, DERIVATION_2)
-	val firstFunction =
-		generateProbabilityDensityFunction(firstVector.mean(), firstVector.standardDeviation(), PROBABILITY_1)
-	val secondFunction =
-		generateProbabilityDensityFunction(secondVector.mean(), secondVector.standardDeviation(), PROBABILITY_2)
+	val firstFunction = generateProbabilityDensityFunction(
+		firstVector.mean(), firstVector.standardDeviation(), PROBABILITY_1
+	)
+	val secondFunction = generateProbabilityDensityFunction(
+		secondVector.mean(), secondVector.standardDeviation(), PROBABILITY_2
+	)
 	val interval = getInterval(firstVector, secondVector)
 	val xValues = doubleArrayFromRange(interval.first, interval.second, STEP)
 	val y1Values = xValues.map(firstFunction).toDoubleArray()

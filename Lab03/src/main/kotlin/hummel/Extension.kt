@@ -7,9 +7,7 @@ fun DoubleArray.mean(): Double {
 	return sum / this.size
 }
 
-fun DoubleArray.standardDeviation(): Double {
-	return sqrt(variance(this))
-}
+fun DoubleArray.standardDeviation(): Double = sqrt(variance(this))
 
 private fun variance(input: DoubleArray): Double {
 	val mean = input.mean()
