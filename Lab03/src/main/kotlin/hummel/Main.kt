@@ -35,7 +35,19 @@ fun main() {
 	val y1Values = xValues.map(firstFunction).toDoubleArray()
 	val y2Values = xValues.map(secondFunction).toDoubleArray()
 
+	val firstIsBigger = y1Values[0] > y2Values[0]
+	var separatorI = 0
+	for (i in xValues.indices) {
+		val rule = if (firstIsBigger) y2Values[i] >= y1Values[i] else y1Values[i] > y2Values[i]
+
+		if (rule) {
+			separatorI = i
+			println("arr[$i]=${xValues[i]}")
+			break
+		}
+	}
+
 	// Вычисление областей под кривыми и отрисовка графика с информацией о долях ошибок.
-	val areas = getAreas(y1Values, y2Values, STEP)
+	val areas = getAreas(y1Values, y2Values, STEP, xValues, separatorI)
 	draw(xValues, y1Values, y2Values, areas)
 }

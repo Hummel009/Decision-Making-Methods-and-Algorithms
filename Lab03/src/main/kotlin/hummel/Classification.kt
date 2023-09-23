@@ -43,15 +43,19 @@ fun generateProbabilityDensityFunction(
 }
 
 // Вычисляет площадь под кривыми, представленными двумя массивами значений y1 и y2 с заданным шагом.
-fun getAreas(y1Values: DoubleArray, y2Values: DoubleArray, step: Double): Pair<Double, Double> {
+fun getAreas(
+	y1Values: DoubleArray, y2Values: DoubleArray, step: Double, xValues: DoubleArray, separatorI: Int
+): Pair<Double, Double> {
 	var detectionMistake = 0.0
-	var falsePositive = 0.0
-	for (i in y1Values.indices) {
-		if (y1Values[i] > y2Values[i]) {
-			detectionMistake += y1Values[i] * step
+	var falseAlarm = 0.0
+
+	for (i in xValues.indices) {
+		if (i < separatorI) {
+			falseAlarm += step * y2Values[i]
 		} else {
-			falsePositive += y2Values[i] * step
+			detectionMistake += step * y1Values[i]
 		}
 	}
-	return detectionMistake to falsePositive
+
+	return detectionMistake to falseAlarm
 }
