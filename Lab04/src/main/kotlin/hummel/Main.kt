@@ -2,20 +2,20 @@ package hummel
 
 fun main() {
 	// Создание списков изображений для каждой категории: S, N, T.
-	val c1Images = ((0..3).map { PictureImage("train/0$it.jpg", 1) })
-	val h1Images = ((0..3).map { PictureImage("train/1$it.jpg", 0) })
-	val t1Images = ((0..3).map { PictureImage("train/2$it.jpg", 0) })
-	val c2Images = ((0..3).map { PictureImage("train/0$it.jpg", 0) })
-	val h2Images = ((0..3).map { PictureImage("train/1$it.jpg", 1) })
-	val t2Images = ((0..3).map { PictureImage("train/2$it.jpg", 0) })
-	val c3Images = ((0..3).map { PictureImage("train/0$it.jpg", 0) })
-	val h3Images = ((0..3).map { PictureImage("train/1$it.jpg", 0) })
-	val t3Images = ((0..3).map { PictureImage("train/2$it.jpg", 1) })
+	val tc1Images = ((0..3).map { PictureImage("train/0$it.jpg", 1) })
+	val fh1Images = ((0..3).map { PictureImage("train/1$it.jpg", 0) })
+	val ft1Images = ((0..3).map { PictureImage("train/2$it.jpg", 0) })
+	val fc2Images = ((0..3).map { PictureImage("train/0$it.jpg", 0) })
+	val th2Images = ((0..3).map { PictureImage("train/1$it.jpg", 1) })
+	val ft2Images = ((0..3).map { PictureImage("train/2$it.jpg", 0) })
+	val fc3Images = ((0..3).map { PictureImage("train/0$it.jpg", 0) })
+	val fh3Images = ((0..3).map { PictureImage("train/1$it.jpg", 0) })
+	val tt3Images = ((0..3).map { PictureImage("train/2$it.jpg", 1) })
 
 	// Объединение списков изображений для каждой категории.
-	val cImages = c1Images + h1Images + t1Images
-	val hImages = c2Images + h2Images + t2Images
-	val tImages = c3Images + h3Images + t3Images
+	val cImages = tc1Images + fh1Images + ft1Images
+	val hImages = fc2Images + th2Images + ft2Images
+	val tImages = fc3Images + fh3Images + tt3Images
 
 	// Создание трех персептронов для каждой категории.
 	val perceptron1 = Perceptron(imagePixelCount = 36, iterationCount = 50)
