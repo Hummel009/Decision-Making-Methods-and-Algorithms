@@ -18,9 +18,9 @@ fun main() {
 	val tImages = c3Images + h3Images + t3Images
 
 	// Создание трех персептронов для каждой категории.
-	val perceptron1 = Perceptron(imagePixelCount = 36, iterationCount = 50)
-	val perceptron2 = Perceptron(imagePixelCount = 36, iterationCount = 50)
-	val perceptron3 = Perceptron(imagePixelCount = 36, iterationCount = 50)
+	val perceptron1 = Perceptron(imagePixelCount = 36, iterationCount = 1000)
+	val perceptron2 = Perceptron(imagePixelCount = 36, iterationCount = 1000)
+	val perceptron3 = Perceptron(imagePixelCount = 36, iterationCount = 1000)
 
 	// Обучение первого персептрона на изображениях из категории S.
 	perceptron1.train(cImages)
