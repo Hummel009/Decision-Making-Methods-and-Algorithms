@@ -22,8 +22,8 @@ fun imageToPixelArray(fileName: String): IntArray {
 }
 
 // Определяем класс для хранения изображения и метки
-data class PictureImage(val pixelArray: IntArray, var isTargetImage: Int) {
-	constructor(fileName: String, targetImageProbability: Int) : this(
+data class PictureImage(val pixelArray: IntArray, var isTargetImage: Boolean) {
+	constructor(fileName: String, targetImageProbability: Boolean) : this(
 		// Создаем объект PictureImage, используя функцию imageToPixelArray
 		imageToPixelArray(fileName), targetImageProbability
 	)
@@ -60,7 +60,7 @@ data class PictureImage(val pixelArray: IntArray, var isTargetImage: Int) {
 
 	override fun hashCode(): Int {
 		var result = pixelArray.contentHashCode()
-		result = 31 * result + isTargetImage
+		result = 31 * result + isTargetImage.hashCode()
 		return result
 	}
 }
@@ -80,7 +80,7 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 				val output = calculateOutput(it)
 				// Проверяем, совпадает ли выход с желаемой меткой (целевым изображением).
 				if (it.isTargetImage != output) {
-					if (it.isTargetImage == 0) {
+					if (!it.isTargetImage) {
 						// Если выход неверный и изображение не является целевым, наказываем персептрон.
 						punish(it)
 					} else {
@@ -118,10 +118,12 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 	}
 
 	// Метод для вычисления выхода персептрона
-	private fun calculateOutput(image: PictureImage) = if (image.calculateWeightSum(weights) >= 0) 1 else 0
+	private fun calculateOutput(image: PictureImage): Boolean {
+		return image.calculateWeightSum(weights) >= 0
+	}
 
 	// Метод для проверки, является ли изображение целевым
-	fun isTargetImage(image: PictureImage): Boolean = calculateOutput(image) == 1
+	fun isTargetImage(image: PictureImage): Boolean = calculateOutput(image)
 
 	private val random = Random()
 
