@@ -23,15 +23,12 @@ fun main() {
 	val perceptron3 = Perceptron(imagePixelCount = 36, iterationCount = 50)
 
 	// Обучение первого персептрона на изображениях из категории S.
-	println("training 1")
 	perceptron1.train(cImages)
 
 	// Обучение второго персептрона на изображениях из категории N.
-	println("training 2")
 	perceptron2.train(hImages)
 
 	// Обучение третьего персептрона на изображениях из категории T.
-	println("training 3")
 	perceptron3.train(tImages)
 
 	// Проверка наличия целевых изображений с помощью обученных персептронов.
