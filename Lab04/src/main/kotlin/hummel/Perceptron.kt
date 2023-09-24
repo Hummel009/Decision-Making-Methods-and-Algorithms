@@ -4,6 +4,9 @@ import java.io.File
 import java.util.*
 import javax.imageio.ImageIO
 
+
+private val random = Random()
+
 fun imageToPixelArray(fileName: String): IntArray {
 	val classLoader = Perceptron::class.java.classLoader
 	val file = File(classLoader.getResource(fileName)!!.file)
@@ -19,6 +22,23 @@ fun imageToPixelArray(fileName: String): IntArray {
 	}
 	// Возвращаем массив пикселей
 	return pixels
+}
+
+// Расширение списка для выбора случайного элемента и выполнения действия над ним
+private fun <E> List<E>.randomItem(action: (item: E) -> Unit) {
+	action(this[random.nextInt(this.size)])
+}
+
+// Вывод матрицы весов
+private fun IntArray.printInSixLines() {
+	for (i in 0 until 6) {
+		for (j in 0 until 6) {
+			val formattedNumber = String.format("%3d", this[i * 6 + j])
+			print("$formattedNumber ")
+		}
+		println()
+	}
+	println()
 }
 
 // Определяем класс для хранения изображения и метки
@@ -77,7 +97,7 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 			// Случайным образом выбираем изображение из обучающего набора.
 			trainingSet.randomItem {
 				// Вычисляем выход персептрона для выбранного изображения.
-				val output = calculateOutput(it)
+				val output = isTargetImage(it)
 				// Проверяем, совпадает ли выход с желаемой меткой (целевым изображением).
 				if (it.isTargetImage != output) {
 					if (!it.isTargetImage) {
@@ -118,33 +138,7 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 	}
 
 	// Метод для вычисления выхода персептрона
-	private fun calculateOutput(image: PictureImage): Boolean {
+	fun isTargetImage(image: PictureImage): Boolean {
 		return image.calculateWeightSum(weights) >= 0
 	}
-
-	// Метод для проверки, является ли изображение целевым
-	fun isTargetImage(image: PictureImage): Boolean = calculateOutput(image)
-
-	private val random = Random()
-
-	// Расширение списка для выбора случайного элемента и выполнения действия над ним
-	private fun <E> List<E>.randomItem(action: (item: E) -> Unit) {
-		action(this[random.nextInt(this.size)])
-	}
-}
-
-private fun IntArray.printInSixLines() {
-	if (size != 36) {
-		println("Array size must be 6x6 to print in six lines.")
-		return
-	}
-
-	for (i in 0 until 6) {
-		for (j in 0 until 6) {
-			val formattedNumber = String.format("%3d", this[i * 6 + j])
-			print("$formattedNumber ")
-		}
-		println()
-	}
-	println()
 }
