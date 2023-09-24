@@ -120,7 +120,7 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 		// Проходим по всем пикселям изображения и уменьшаем соответствующие веса, если пиксель активен (1).
 		weights.indices.forEach {
 			if (image.pixelArray[it] == 1) {
-				weights[it] -= 1
+				weights[it]--
 			}
 		}
 	}
@@ -130,7 +130,7 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 		// Проходим по всем пикселям изображения и увеличиваем соответствующие веса, если пиксель активен (1).
 		weights.indices.forEach {
 			if (image.pixelArray[it] == 1) {
-				weights[it] += 1
+				weights[it]++
 			}
 		}
 	}
