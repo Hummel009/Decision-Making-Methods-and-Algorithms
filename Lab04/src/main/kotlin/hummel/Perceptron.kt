@@ -32,8 +32,8 @@ data class PictureImage(val pixelArray: IntArray, var isTargetImage: Int) {
 	fun calculateWeightSum(weights: IntArray): Int {
 		var sum = 0
 		// Проходим по всем пикселям и умножаем их на соответствующие веса
-		weights.indices.forEach { i ->
-			sum += weights[i] * pixelArray[i]
+		weights.indices.forEach {
+			sum += weights[it] * pixelArray[it]
 		}
 		return sum
 	}
@@ -74,21 +74,20 @@ class Perceptron(
 
 	// Метод для обучения персептрона на заданном наборе обучающих изображений.
 	fun train(trainingSet: List<PictureImage>) {
-		var prevPercent = -1
 		// Проходим через заданное количество итераций обучения.
 		for (it in 1..iterationCount) {
 			// Случайным образом выбираем изображение из обучающего набора.
-			trainingSet.randomItem { image ->
+			trainingSet.randomItem {
 				// Вычисляем выход персептрона для выбранного изображения.
-				val output = calculateOutput(image)
+				val output = calculateOutput(it)
 				// Проверяем, совпадает ли выход с желаемой меткой (целевым изображением).
-				if (image.isTargetImage != output) {
-					if (image.isTargetImage == 0) {
+				if (it.isTargetImage != output) {
+					if (it.isTargetImage == 0) {
 						// Если выход неверный и изображение не является целевым, наказываем персептрон.
-						punish(image)
+						punish(it)
 					} else {
 						// Если выход неверный и изображение является целевым, стимулируем персептрон.
-						stimulate(image)
+						stimulate(it)
 					}
 				}
 			}
@@ -98,9 +97,9 @@ class Perceptron(
 	// Метод для наказания персептрона в случае неверного выхода.
 	private fun punish(image: PictureImage) {
 		// Проходим по всем пикселям изображения и уменьшаем соответствующие веса, если пиксель активен (1).
-		weights.indices.forEach { i ->
-			if (image.pixelArray[i] == 1) {
-				weights[i] -= 1
+		weights.indices.forEach {
+			if (image.pixelArray[it] == 1) {
+				weights[it] -= 1
 			}
 		}
 	}
@@ -108,9 +107,9 @@ class Perceptron(
 	// Метод для стимулирования персептрона в случае неверного выхода.
 	private fun stimulate(image: PictureImage) {
 		// Проходим по всем пикселям изображения и увеличиваем соответствующие веса, если пиксель активен (1).
-		weights.indices.forEach { i ->
-			if (image.pixelArray[i] == 1) {
-				weights[i] += 1
+		weights.indices.forEach {
+			if (image.pixelArray[it] == 1) {
+				weights[it] += 1
 			}
 		}
 	}
