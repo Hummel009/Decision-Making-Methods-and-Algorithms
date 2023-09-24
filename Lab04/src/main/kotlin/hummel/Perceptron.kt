@@ -4,7 +4,6 @@ import java.io.File
 import java.util.*
 import javax.imageio.ImageIO
 
-
 private val random = Random()
 
 fun imageToPixelArray(fileName: String): IntArray {
