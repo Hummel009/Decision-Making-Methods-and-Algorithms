@@ -27,8 +27,8 @@ private fun <E> List<E>.randomItem(action: (item: E) -> Unit) {
 }
 
 data class PictureImage(val pixelArray: IntArray, var isTargetImage: Boolean) {
-	constructor(fileName: String, targetImageProbability: Boolean) : this(
-		imageToPixelArray(fileName), targetImageProbability
+	constructor(fileName: String, isTargetImage: Boolean) : this(
+		imageToPixelArray(fileName), isTargetImage
 	)
 
 	// Метод для вычисления суммы взвешенных значений пикселей
