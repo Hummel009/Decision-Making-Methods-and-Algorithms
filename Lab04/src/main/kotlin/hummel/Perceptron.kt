@@ -13,38 +13,21 @@ fun imageToPixelArray(fileName: String): IntArray {
 	val image = ImageIO.read(file)
 	// Создаем массив для хранения пикселей (0 - белый, 1 - черный)
 	val pixels = IntArray(image.width * image.height)
-	// Проходим по всем пикселям изображения
 	for (x in 0 until image.width) {
 		for (y in 0 until image.height) {
 			// Преобразуем цвет пикселя в 0 или 1 и сохраняем в массиве
 			pixels[x * image.width + y] = (if (image.getRGB(x, y) == 0xFFFFFFFF.toInt()) 0 else 1)
 		}
 	}
-	// Возвращаем массив пикселей
 	return pixels
 }
 
-// Расширение списка для выбора случайного элемента и выполнения действия над ним
 private fun <E> List<E>.randomItem(action: (item: E) -> Unit) {
 	action(this[random.nextInt(this.size)])
 }
 
-// Вывод матрицы весов
-private fun IntArray.printInSixLines() {
-	for (i in 0 until 6) {
-		for (j in 0 until 6) {
-			val formattedNumber = String.format("%3d", this[i * 6 + j])
-			print("$formattedNumber ")
-		}
-		println()
-	}
-	println()
-}
-
-// Определяем класс для хранения изображения и метки
 data class PictureImage(val pixelArray: IntArray, var isTargetImage: Boolean) {
 	constructor(fileName: String, targetImageProbability: Boolean) : this(
-		// Создаем объект PictureImage, используя функцию imageToPixelArray
 		imageToPixelArray(fileName), targetImageProbability
 	)
 
@@ -85,10 +68,8 @@ data class PictureImage(val pixelArray: IntArray, var isTargetImage: Boolean) {
 	}
 }
 
-// Определяем класс Perceptron для обучения
 class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 	private val weights: IntArray = IntArray(imagePixelCount)
-	private var prev: IntArray = IntArray(imagePixelCount)
 
 	// Метод для обучения персептрона на заданном наборе обучающих изображений.
 	fun train(trainingSet: List<PictureImage>) {
@@ -96,7 +77,7 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 			trainingSet.randomItem {
 				// Вычисляем вывод персептрона для выбранного изображения.
 				val isTargetImage = isTargetImage(it)
-				// Проверяем, совпадает ли вывод с желаемой меткой (целевым изображением).
+				// Проверяем, совпадает ли вывод с правильным ответом
 				if (it.isTargetImage != isTargetImage) {
 					if (it.isTargetImage) {
 						// Если вывод неверный и изображение является целевым, стимулируем персептрон.
@@ -106,11 +87,6 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 						punish(it)
 					}
 				}
-			}
-			val cur = weights.copyOf()
-			if (!cur.contentEquals(prev)) {
-				prev = cur
-				cur.printInSixLines()
 			}
 		}
 	}
