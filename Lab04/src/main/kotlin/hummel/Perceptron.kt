@@ -31,14 +31,7 @@ data class PictureImage(val pixelArray: IntArray, var isTargetImage: Boolean) {
 	)
 
 	// Метод для вычисления суммы взвешенных значений пикселей
-	fun calculateWeightSum(weights: IntArray): Int {
-		var sum = 0
-		// Проходим по всем пикселям и умножаем их на соответствующие веса
-		weights.indices.forEach {
-			sum += weights[it] * pixelArray[it]
-		}
-		return sum
-	}
+	fun calculateWeightSum(weights: IntArray): Int = weights.zip(pixelArray) { weight, pixel -> weight * pixel }.sum()
 
 	override fun equals(other: Any?): Boolean {
 		if (this === other) {
@@ -93,9 +86,9 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 	// Метод для наказания персептрона в случае неверного выхода.
 	private fun punish(image: PictureImage) {
 		// Проходим по всем пикселям изображения и уменьшаем соответствующие веса, если пиксель активен (1).
-		weights.indices.forEach {
-			if (image.pixelArray[it] == 1) {
-				weights[it]--
+		for (i in weights.indices) {
+			if (image.pixelArray[i] == 1) {
+				weights[i]--
 			}
 		}
 	}
@@ -103,15 +96,13 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 	// Метод для стимулирования персептрона в случае неверного выхода.
 	private fun stimulate(image: PictureImage) {
 		// Проходим по всем пикселям изображения и увеличиваем соответствующие веса, если пиксель активен (1).
-		weights.indices.forEach {
-			if (image.pixelArray[it] == 1) {
-				weights[it]++
+		for (i in weights.indices) {
+			if (image.pixelArray[i] == 1) {
+				weights[i]++
 			}
 		}
 	}
 
 	// Метод для вычисления выхода персептрона
-	fun isTargetImage(image: PictureImage): Boolean {
-		return image.calculateWeightSum(weights) >= 0
-	}
+	fun isTargetImage(image: PictureImage): Boolean = image.calculateWeightSum(weights) >= 0
 }
