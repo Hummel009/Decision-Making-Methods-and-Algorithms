@@ -35,6 +35,7 @@ fun main() {
 	val y1Values = xValues.map(firstFunction).toDoubleArray()
 	val y2Values = xValues.map(secondFunction).toDoubleArray()
 
+	// Нахождение места пересечения колоколов вероятности
 	val firstIsBigger = y1Values[0] > y2Values[0]
 	var separatorI = 0
 	for (i in xValues.indices) {
