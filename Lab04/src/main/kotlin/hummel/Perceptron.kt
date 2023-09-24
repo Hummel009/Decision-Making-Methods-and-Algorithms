@@ -66,11 +66,9 @@ data class PictureImage(val pixelArray: IntArray, var isTargetImage: Int) {
 }
 
 // Определяем класс Perceptron для обучения
-class Perceptron(
-	imagePixelCount: Int, private val threshold: Double = 0.0, val iterationCount: Int = 10000
-) {
-	// Массив весов
+class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 	private val weights: IntArray = IntArray(imagePixelCount)
+	private var prev: IntArray = IntArray(imagePixelCount)
 
 	// Метод для обучения персептрона на заданном наборе обучающих изображений.
 	fun train(trainingSet: List<PictureImage>) {
@@ -90,6 +88,11 @@ class Perceptron(
 						stimulate(it)
 					}
 				}
+			}
+			val cur = weights.copyOf()
+			if (!cur.contentEquals(prev)) {
+				prev = cur
+				cur.printInSixLines()
 			}
 		}
 	}
@@ -115,7 +118,7 @@ class Perceptron(
 	}
 
 	// Метод для вычисления выхода персептрона
-	private fun calculateOutput(image: PictureImage) = if (image.calculateWeightSum(weights) >= threshold) 1 else 0
+	private fun calculateOutput(image: PictureImage) = if (image.calculateWeightSum(weights) >= 0) 1 else 0
 
 	// Метод для проверки, является ли изображение целевым
 	fun isTargetImage(image: PictureImage): Boolean = calculateOutput(image) == 1
@@ -126,4 +129,20 @@ class Perceptron(
 	private fun <E> List<E>.randomItem(action: (item: E) -> Unit) {
 		action(this[random.nextInt(this.size)])
 	}
+}
+
+private fun IntArray.printInSixLines() {
+	if (size != 36) {
+		println("Array size must be 6x6 to print in six lines.")
+		return
+	}
+
+	for (i in 0 until 6) {
+		for (j in 0 until 6) {
+			val formattedNumber = String.format("%3d", this[i * 6 + j])
+			print("$formattedNumber ")
+		}
+		println()
+	}
+	println()
 }
