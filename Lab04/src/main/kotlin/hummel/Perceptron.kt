@@ -92,12 +92,6 @@ class Perceptron(
 					}
 				}
 			}
-			// Вычисляем процент завершенности обучения и выводим информацию о процессе каждые 10%.
-			val percent = (it.toDouble() / iterationCount * 100).toInt()
-			if ((percent % 10 == 0) && prevPercent != percent) {
-				prevPercent = percent
-				println("Training... $percent%")
-			}
 		}
 	}
 
