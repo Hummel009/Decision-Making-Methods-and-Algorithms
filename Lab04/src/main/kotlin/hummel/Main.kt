@@ -32,7 +32,7 @@ fun main() {
 	perceptron3.train(tImages)
 
 	// Проверка наличия целевых изображений с помощью обученных персептронов.
-	println("Распознание (C): ${perceptron1.isTargetImage(PictureImage("test/c-test.jpg", 1))}")
-	println("Распознание (H): ${perceptron2.isTargetImage(PictureImage("test/h-test.jpg", 1))}")
-	println("Распознание (T): ${perceptron3.isTargetImage(PictureImage("test/t-test.jpg", 1))}")
+	println("Распознано (C): ${perceptron1.isTargetImage(PictureImage("test/c-test.jpg", 1))}")
+	println("Распознано (H): ${perceptron2.isTargetImage(PictureImage("test/h-test.jpg", 1))}")
+	println("Распознано (T): ${perceptron3.isTargetImage(PictureImage("test/t-test.jpg", 1))}")
 }
