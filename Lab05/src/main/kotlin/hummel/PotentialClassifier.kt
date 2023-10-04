@@ -26,11 +26,8 @@ fun generateDecisionFunction(
 	return GeneratedFunctions({ (x, y) ->
 		val potentialValue =
 			potentialCoefficients.first + potentialCoefficients.second * x + potentialCoefficients.third * y + potentialCoefficients.fourth * x * y
-		if (potentialValue <= 0) {
-			ClassifiedPoint(x, y, 2)
-		} else {
-			ClassifiedPoint(x, y, 1)
-		}
+
+		ClassifiedPoint(x, y, if (potentialValue <= 0) 2 else 1)
 	}, potentialCoefficients.getChartFunction())
 }
 

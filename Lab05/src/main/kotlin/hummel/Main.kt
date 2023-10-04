@@ -6,6 +6,14 @@ val random: Random = Random()
 val xRange: Range = Range(-5.0, 5.0)
 val yRange: Range = Range(-3.0, 3.0)
 
+/*
+val trainSet: MutableList<ClassifiedPoint> = mutableListOf(
+	ClassifiedPoint(-1.0, 1.0, 1),
+	ClassifiedPoint(1.0, 1.0, 1),
+	ClassifiedPoint(2.0, 0.0, 2),
+	ClassifiedPoint(-1.0, 2.0, 2)
+)
+ */
 val trainSet: MutableList<ClassifiedPoint> = mutableListOf(
 	ClassifiedPoint(-1.0, 0.0, 1),
 	ClassifiedPoint(1.0, 1.0, 1),
