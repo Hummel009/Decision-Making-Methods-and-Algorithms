@@ -3,29 +3,25 @@ package hummel
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.IOException
+import java.util.*
 import javax.imageio.ImageIO
 
-fun Any.safeToInt(onlyPositive: Boolean = false): Int? = try {
-	val int = this.toString().toInt()
-	if (onlyPositive) if (int > 0) int else null
-	else int
-} catch (e: NumberFormatException) {
-	e.printStackTrace()
-	null
+fun Scanner.nextIntSafe(): Int {
+	return try {
+		nextLine().toInt()
+	} catch (e: Exception) {
+		print("Error! Enter the correct value: ")
+		nextIntSafe()
+	}
 }
 
-fun loadImageFromFile(path: String): BufferedImage? = try {
-	loadImageFromFile(File(path))
-} catch (e: IOException) {
-	e.printStackTrace()
-	null
-}
-
-fun loadImageFromFile(file: File): BufferedImage? = try {
-	ImageIO.read(file)
-} catch (e: IOException) {
-	e.printStackTrace()
-	null
+fun File.loadImage(): BufferedImage? {
+	return try {
+		ImageIO.read(this)
+	} catch (e: IOException) {
+		e.printStackTrace()
+		null
+	}
 }
 
 fun BufferedImage.flatten(): IntArray {

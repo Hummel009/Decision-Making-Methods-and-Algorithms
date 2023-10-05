@@ -21,9 +21,7 @@ configurations {
 
 dependencies {
 	embed 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22'
-	embed fileTree(dir: 'libs', include: ['*.jar'])
 	embed 'org.encog:encog-core:3.2.0'
-	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	implementation 'org.encog:encog-core:3.2.0'
 }
 

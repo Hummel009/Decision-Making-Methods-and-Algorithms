@@ -1,133 +1,135 @@
 package hummel
 
-import org.encog.Encog
 import org.encog.ml.data.basic.BasicMLData
 import org.encog.neural.networks.BasicNetwork
-import org.meinkopf.console.BasicCommandList
-import org.meinkopf.console.JConsole
 import java.awt.image.BufferedImage
 import java.io.File
-import kotlin.system.exitProcess
+import java.nio.charset.StandardCharsets
+import java.util.*
+
+val scanner: Scanner = Scanner(System.`in`, StandardCharsets.UTF_8.name())
 
 fun main() {
-	JConsole.PROMPT = "> "
-	JConsole.HEADER = "Neural network app"
-	FixedJConsole(populateCommandList()).run()
+	Launcher.init()
+	loop@ while (true) {
+		print("Enter the command: ")
+		val command = scanner.nextLine()
+
+		if (command == "exit") {
+			break@loop
+		}
+
+		Launcher.functions[command]?.invoke() ?: println("Unknown command!")
+	}
+	scanner.close()
 }
 
-var imageSize: Pair<Int, Int> = 100 to 100
-var network: BasicNetwork? = null
+object Launcher {
+	private var imageSize: Pair<Int, Int> = 100 to 100
+	private var network: BasicNetwork? = null
+	val functions: MutableMap<String, () -> Unit> = HashMap()
 
-fun populateCommandList(): BasicCommandList {
-	val commandList = BasicCommandList()
-	commandList.register("exit") {
-		Encog.getInstance().shutdown()
-		exitProcess(0)
+	fun init() {
+		functions.clear()
+		functions["commands"] = this::showAllCommands
+		functions["create"] = this::create
+		functions["recognize"] = this::recognize
+		functions["train"] = this::train
+		functions["punish"] = this::punish
+		functions["info"] = this::info
 	}
-	commandList.register("help") {
-		println(" | exit        -> exit program")
-		println(" | help        -> print this help")
-		println(" | recognize")
-		println("    | path         -> recognize image from this path")
-		println(" | traindir")
-		println("    | path         -> train network with all images from specified dir")
-		println(" | punishdir")
-		println("    | path         -> punish network with all images from specified dir")
-		println(" | network")
-		println("    | ?            -> show network info")
-		println("    | height width -> create network with for specified image size")
-	}
-	commandList.register("network") {
-		if (it.isNotEmpty()) {
-			if (it[0].toString() == "?") {
-				if (network != null) {
-					println("Multi Layer Perceptron [Height: ${imageSize.first}, Width: ${imageSize.second}]")
-				} else {
-					println("No network")
-				}
-			} else {
-				if (it.size >= 2) {
-					val height = it[0].safeToInt(true)
-					val width = it[1].safeToInt(true)
-					if (height != null && width != null) {
-						imageSize = height to width
-						println("Creating network...")
-						network = createNetwork(height * width * 3, 1)
-						println("Done")
-					}
-				} else {
-					println("Image height and width required")
-				}
-			}
+
+	private fun info() {
+		if (network != null) {
+			println("The network is the perceptron for images ${imageSize.first}x${imageSize.second}.")
 		} else {
-			println(" | ?            -> show size")
-			println(" | height width -> set new size")
+			println("The network does not exist!")
 		}
 	}
-	commandList.register("recognize") {
-		if (it.isNotEmpty()) {
-			val image = loadImageFromFile(it[0].toString())
+
+	private fun train() {
+		if (network != null) {
+			print("Enter the folder path (example: ./test/data): ")
+			val path = scanner.nextLine()
+			trainNetworkCommand(path, 1)
+		} else {
+			println("The network does not exist!")
+		}
+	}
+
+	private fun punish() {
+		if (network != null) {
+			print("Enter the folder path (example: ./test/data): ")
+			val path = scanner.nextLine()
+			trainNetworkCommand(path, 0)
+		} else {
+			println("The network does not exist!")
+		}
+	}
+
+	private fun recognize() {
+		if (network != null) {
+			print("Enter the image path (example: ./test/s-test.jpg): ")
+			val name = scanner.nextLine()
+			val file = File(name)
+			val image = file.loadImage()
 			if (image != null) {
 				if (image.height == imageSize.first && image.width == imageSize.second) {
 					if (network != null) {
 						val flatten = image.flatten()
 						println("Recognizing...")
-						val output = network!!.compute(BasicMLData(DoubleArray(flatten.size) { i ->
+						val output = (network ?: return).compute(BasicMLData(DoubleArray(flatten.size) { i ->
 							flatten[i].toDouble()
 						}))
-						println("Result: ${output.data.contentToString()}")
+						println("Result: ${output.data.contentToString()}.")
 					} else {
-						println("Network not created")
+						println("The network does not exist!")
 					}
 				} else {
-					println("Invalid image size (${image.height},${image.width}), required (${imageSize.first},${imageSize.second})")
+					println("Invalid image size!")
 				}
 			} else {
-				println("Cannot load image from this path")
+				println("The image does not exist!")
 			}
 		} else {
-			println("Image path required")
+			println("The network does not exist!")
 		}
 	}
-	commandList.register("traindir") {
-		trainNetworkCommand(it, 1)
-	}
-	commandList.register("punishdir") {
-		trainNetworkCommand(it, 0)
-	}
-	return commandList
-}
 
-fun trainNetworkCommand(it: Array<Any>, output: Int) {
-	if (network != null) {
-		if (it.isNotEmpty()) {
-			try {
-				val dir = File(it[0].toString())
-				if (dir.isDirectory) {
-					println("Reading directory...")
-					val images = mutableListOf<BufferedImage>()
-					dir.listFiles()?.forEach {
-						val image = loadImageFromFile(it)
-						if (image != null && image.height == imageSize.first && image.width == imageSize.second) {
-							images.add(image)
-						}
+	private fun create() {
+		print("Enter the height (example: 6): ")
+		val height = scanner.nextIntSafe()
+		print("Enter the width (example: 6): ")
+		val width = scanner.nextIntSafe()
+		imageSize = height to width
+		network = createNetwork(height * width * 3, 1)
+		println("The network was created.")
+	}
+
+	private fun showAllCommands() {
+		for (item in functions.keys) {
+			println(item)
+		}
+	}
+
+	private fun trainNetworkCommand(it: String, output: Int) {
+		if (network != null) {
+			val dir = File(it)
+			if (dir.isDirectory) {
+				val images = mutableListOf<BufferedImage>()
+				dir.listFiles()?.forEach {
+					val image = it.loadImage()
+					if (image != null && image.height == imageSize.first && image.width == imageSize.second) {
+						images.add(image)
 					}
-					println("Read ${images.size} images")
-					println("Flattening...")
-					val list = images.map { it.flatten() }
-					println("Training...")
-					(network ?: return).train(list, output)
-				} else {
-					println("Not a directory")
 				}
-			} catch (e: Exception) {
-				println("Error while reading directory")
-				e.printStackTrace()
+				val list = images.map { it.flatten() }
+				(network ?: return).train(list, output)
+			} else {
+				println("Invalid directory!")
 			}
 		} else {
-			println("Directory path required")
+			println("The network does not exist!")
 		}
-	} else {
-		println("Network not created")
 	}
 }
