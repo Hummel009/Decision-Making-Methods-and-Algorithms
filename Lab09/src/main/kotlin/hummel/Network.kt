@@ -17,15 +17,20 @@ fun createNetwork(inputCount: Int, outputsCount: Int): BasicNetwork {
 
 fun BasicNetwork.train(inputs: List<IntArray>, output: Int) {
 	val dataSet = BasicMLDataSet(Array(inputs.size) { i ->
-		DoubleArray(inputs[i].size) { j -> inputs[i][j].toDouble() }
-	}, Array(inputs.size) { doubleArrayOf(output.toDouble()) })
+		DoubleArray(inputs[i].size) { j ->
+			inputs[i][j].toDouble()
+		}
+	}, Array(inputs.size) {
+		doubleArrayOf(output.toDouble())
+	})
+
 	val train = ResilientPropagation(this, dataSet)
 
-	var epoch = 1
+	var step = 1
 	do {
 		train.iteration()
-		println("Epoch #$epoch; Error: ${train.error}")
-		epoch++
+		println("Step #$step; Error: ${train.error}")
+		step++
 	} while (train.error > 0.01)
 	train.finishTraining()
 }
