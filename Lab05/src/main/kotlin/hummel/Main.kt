@@ -6,14 +6,13 @@ val random: Random = Random()
 val xRange: Range = Range(-5.0, 5.0)
 val yRange: Range = Range(-3.0, 3.0)
 
-/*
-val trainSet: MutableList<ClassifiedPoint> = mutableListOf(
+val trainSetEgor: MutableList<ClassifiedPoint> = mutableListOf(
 	ClassifiedPoint(-1.0, 1.0, 1),
 	ClassifiedPoint(1.0, 1.0, 1),
 	ClassifiedPoint(2.0, 0.0, 2),
 	ClassifiedPoint(-1.0, 2.0, 2)
 )
- */
+
 val trainSet: MutableList<ClassifiedPoint> = mutableListOf(
 	ClassifiedPoint(-1.0, 0.0, 1),
 	ClassifiedPoint(1.0, 1.0, 1),
@@ -29,7 +28,7 @@ val trainSetIntersectedLines: MutableList<ClassifiedPoint> = mutableListOf(
 )
 
 fun main() {
-	val dataSets = arrayOf(trainSet, trainSetIntersectedLines)
+	val dataSets = arrayOf(trainSet, trainSetIntersectedLines, trainSetEgor)
 
 	dataSets.forEachIndexed { index, dataSet ->
 		//разделяющая функция и решающее правило
