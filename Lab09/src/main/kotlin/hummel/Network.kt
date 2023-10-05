@@ -8,9 +8,17 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
 
 fun createNetwork(inputCount: Int, outputsCount: Int): BasicNetwork {
 	val network = BasicNetwork()
+
+	// Добавляем входной слой с указанным количеством нейронов
 	network.addLayer(BasicLayer(null, true, inputCount))
+
+	// Добавляем скрытый слой с указанным количеством нейронов
 	network.addLayer(BasicLayer(inputCount))
+
+	// Добавляем выходной слой с сигмоидной функцией активации и указанным количеством нейронов
+	// Сигмоидная функция используется в нейронных сетях для введения нелинейности в выходной сигнал.
 	network.addLayer(BasicLayer(ActivationSigmoid(), false, outputsCount))
+
 	network.structure.finalizeStructure()
 	return network
 }
