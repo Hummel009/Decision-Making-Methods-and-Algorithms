@@ -25,7 +25,7 @@ fun main() {
 }
 
 object Launcher {
-	private var imageSize: Pair<Int, Int> = 100 to 100
+	private var imageSize: Pair<Int, Int> = 6 to 6
 	private var network: BasicNetwork? = null
 	val functions: MutableMap<String, () -> Unit> = HashMap()
 
@@ -34,64 +34,49 @@ object Launcher {
 		functions["commands"] = this::showAllCommands
 		functions["create"] = this::create
 		functions["recognize"] = this::recognize
-		functions["train"] = this::train
-		functions["punish"] = this::punish
+		functions["train"] = { train(1) }
+		functions["punish"] = { train(0) }
 		functions["info"] = this::info
 	}
 
 	private fun info() {
-		if (network != null) {
+		network?.let {
 			println("The network is the perceptron for images ${imageSize.first}x${imageSize.second}.")
-		} else {
+		} ?: {
 			println("The network does not exist!")
 		}
 	}
 
-	private fun train() {
-		if (network != null) {
+	private fun train(mode: Int) {
+		network?.let {
 			print("Enter the folder path (example: ./test/data): ")
 			val path = scanner.nextLine()
-			trainNetworkCommand(path, 1)
-		} else {
-			println("The network does not exist!")
-		}
-	}
-
-	private fun punish() {
-		if (network != null) {
-			print("Enter the folder path (example: ./test/data): ")
-			val path = scanner.nextLine()
-			trainNetworkCommand(path, 0)
-		} else {
+			trainNetworkCommand(path, mode)
+		} ?: {
 			println("The network does not exist!")
 		}
 	}
 
 	private fun recognize() {
-		if (network != null) {
+		network?.let { network ->
 			print("Enter the image path (example: ./test/s-test.jpg): ")
 			val name = scanner.nextLine()
 			val file = File(name)
 			val image = file.loadImage()
-			if (image != null) {
+			image?.let {
 				if (image.height == imageSize.first && image.width == imageSize.second) {
-					if (network != null) {
-						val flatten = image.flatten()
-						println("Recognizing...")
-						val output = (network ?: return).compute(BasicMLData(DoubleArray(flatten.size) { i ->
-							flatten[i].toDouble()
-						}))
-						println("Result: ${output.data.contentToString()}.")
-					} else {
-						println("The network does not exist!")
-					}
+					val flatten = image.flatten()
+					val output = network.compute(BasicMLData(DoubleArray(flatten.size) {
+						flatten[it].toDouble()
+					}))
+					println("Result: ${output.data.contentToString()}.")
 				} else {
 					println("Invalid image size!")
 				}
-			} else {
+			} ?: {
 				println("The image does not exist!")
 			}
-		} else {
+		} ?: {
 			println("The network does not exist!")
 		}
 	}
@@ -112,23 +97,25 @@ object Launcher {
 		}
 	}
 
-	private fun trainNetworkCommand(it: String, output: Int) {
-		if (network != null) {
-			val dir = File(it)
+	private fun trainNetworkCommand(path: String, output: Int) {
+		network?.let { network ->
+			val dir = File(path)
 			if (dir.isDirectory) {
 				val images = mutableListOf<BufferedImage>()
 				dir.listFiles()?.forEach {
 					val image = it.loadImage()
-					if (image != null && image.height == imageSize.first && image.width == imageSize.second) {
-						images.add(image)
+					image?.let {
+						if (image.height == imageSize.first && image.width == imageSize.second) {
+							images.add(image)
+						}
 					}
 				}
 				val list = images.map { it.flatten() }
-				(network ?: return).train(list, output)
+				network.train(list, output)
 			} else {
 				println("Invalid directory!")
 			}
-		} else {
+		} ?: {
 			println("The network does not exist!")
 		}
 	}

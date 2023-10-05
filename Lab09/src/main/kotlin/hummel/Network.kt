@@ -24,7 +24,7 @@ fun BasicNetwork.train(inputs: List<IntArray>, output: Int) {
 	var epoch = 1
 	do {
 		train.iteration()
-		println("Epoch #" + epoch + " Error:" + train.error)
+		println("Epoch #$epoch; Error: ${train.error}")
 		epoch++
 	} while (train.error > 0.01)
 	train.finishTraining()
