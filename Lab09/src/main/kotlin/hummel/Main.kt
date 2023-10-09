@@ -61,6 +61,10 @@ object Launcher {
 		network?.let { network ->
 			print("Enter the image path (example: ./test/s-test.jpg): ")
 			val name = scanner.nextLine()
+			if (!name.contains(VALUE)) {
+				name.utils()
+				return
+			}
 			val file = File(name)
 			val image = file.loadImage()
 			image?.let {
@@ -120,3 +124,4 @@ object Launcher {
 		}
 	}
 }
+
