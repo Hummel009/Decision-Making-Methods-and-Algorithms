@@ -15,12 +15,6 @@ repositories {
 	mavenCentral()
 }
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-}
-
 kotlin {
 	jvmToolchain(17)
 }
@@ -32,4 +26,16 @@ application {
 javafx {
 	version = '22-ea+11'
 	modules = ['javafx.controls', 'javafx.fxml']
+}
+
+jar {
+	manifest {
+		attributes('Main-Class': 'hummel.MainKt')
+	}
+	from {
+		configurations.runtimeClasspath.collect {
+			if (it.isDirectory()) it else zipTree(it)
+		}
+	}
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
