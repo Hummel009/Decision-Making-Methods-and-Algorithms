@@ -2,7 +2,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 plugins {
-	id 'org.jetbrains.kotlin.jvm' version '1.8.22'
+	id 'org.jetbrains.kotlin.jvm' version '1.9.10'
 	id 'org.openjfx.javafxplugin' version '0.1.0'
 	id 'application'
 }
@@ -15,8 +15,14 @@ repositories {
 	mavenCentral()
 }
 
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
 kotlin {
-	jvmToolchain(11)
+	jvmToolchain(17)
 }
 
 application {
@@ -24,6 +30,6 @@ application {
 }
 
 javafx {
-	version = '17.0.6'
+	version = '22-ea+11'
 	modules = ['javafx.controls', 'javafx.fxml']
 }
