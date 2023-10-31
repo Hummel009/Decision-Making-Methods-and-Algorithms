@@ -22,7 +22,7 @@
 				prefWidth="171.0"
 				text="Clean"/>
 		<Label fx:id="resultLabel" layoutX="615.0" layoutY="141.0" prefHeight="17.0" prefWidth="170.0" text="Label"
-			   textAlignment="CENTER" textFill="RED">
+			   textAlignment="CENTER" textFill="#006400">
 			<font>
 				<Font size="14.0"/>
 			</font>

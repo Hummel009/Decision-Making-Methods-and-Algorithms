@@ -4,8 +4,8 @@ import kotlin.math.abs
 
 private const val HORIZONTAL_LINE = "horizontal"
 private const val VERTICAL_LINE = "vertical"
-private const val SLASH_LINE = "slash"
-private const val BACK_SLASH_LINE = "backslash"
+private const val RIGHT_45_DEG = "right45"
+private const val LEFT_45_DEG = "left45"
 
 class Grammar {
 	private val rules: MutableMap<String, Rule> = mutableMapOf()
@@ -15,8 +15,8 @@ class Grammar {
 		private val dictionary: MutableMap<String, ElementType> = mutableMapOf(
 			HORIZONTAL_LINE to TerminalElementType(HORIZONTAL_LINE, Line(Point(.0, .0), Point(10.0, .0))),
 			VERTICAL_LINE to TerminalElementType(VERTICAL_LINE, Line(Point(.0, .0), Point(.0, 10.0))),
-			SLASH_LINE to TerminalElementType(SLASH_LINE, Line(Point(.0, .0), Point(10.0, 10.0))),
-			BACK_SLASH_LINE to TerminalElementType(BACK_SLASH_LINE, Line(Point(10.0, .0), Point(.0, 10.0)))
+			RIGHT_45_DEG to TerminalElementType(RIGHT_45_DEG, Line(Point(.0, .0), Point(10.0, 10.0))),
+			LEFT_45_DEG to TerminalElementType(LEFT_45_DEG, Line(Point(10.0, .0), Point(.0, 10.0)))
 		)
 
 		fun getTerminalElement(line: Line): Element {
@@ -45,9 +45,9 @@ class Grammar {
 			val highPoint = if (line.to.y > line.from.y) line.to else line.from
 			val lowPoint = if (line.to.y < line.from.y) line.to else line.from
 			if (highPoint.x < lowPoint.x) {
-				return BACK_SLASH_LINE
+				return LEFT_45_DEG
 			}
-			return SLASH_LINE
+			return RIGHT_45_DEG
 		}
 
 	}
