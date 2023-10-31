@@ -62,7 +62,7 @@ class LeftRule(
 	}
 
 	override fun transformConnect(first: Element, second: Element): Element {
-		second.move(first.length() /*+ randomDouble(.0, 1.0)*/, .0)
+		second.move(first.length(), .0)
 		return connect(first, second)
 	}
 

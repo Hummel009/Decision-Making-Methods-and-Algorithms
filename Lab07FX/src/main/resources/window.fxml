@@ -25,7 +25,7 @@
 		<Button layoutX="615.0" layoutY="92.0" mnemonicParsing="false" onAction="#clean" prefHeight="25.0"
 				prefWidth="171.0" text="Clean"/>
 		<Label fx:id="resultLabel" layoutX="615.0" layoutY="143.0" prefHeight="17.0" prefWidth="170.0" text="Label"
-			   textAlignment="CENTER" textFill="RED" visible="false">
+		       textAlignment="CENTER" textFill="#006400" visible="false">
 			<font>
 				<Font size="14.0"/>
 			</font>
