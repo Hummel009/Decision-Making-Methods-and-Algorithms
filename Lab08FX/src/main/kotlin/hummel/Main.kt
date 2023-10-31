@@ -15,7 +15,7 @@ class Main : Application() {
 	override fun start(primaryStage: Stage) {
 		val root = FXMLLoader.load<Parent>(Thread.currentThread().contextClassLoader.getResource("window.fxml"))
 		primaryStage.title = "Grammar generation"
-		primaryStage.scene = Scene(root, 800.0, 650.0)
+		primaryStage.scene = Scene(root, 1280.0, 720.0)
 		primaryStage.show()
 	}
 }

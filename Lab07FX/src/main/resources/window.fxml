@@ -6,29 +6,31 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8"
-		  fx:controller="hummel.Controller">
+          fx:controller="hummel.Controller">
 	<columnConstraints>
 		<ColumnConstraints/>
 	</columnConstraints>
 	<rowConstraints>
 		<RowConstraints/>
 	</rowConstraints>
-	<AnchorPane prefHeight="600.0" prefWidth="800.0">
-		<Canvas fx:id="canvas" height="600.0" layoutX="6.0" layoutY="7.0" onMouseClicked="#onCanvasMouseClicked"
-				onMouseMoved="#onCanvasMouseMove" width="600.0" AnchorPane.leftAnchor="0.0"
-				AnchorPane.topAnchor="0.0"/>
-		<Button layoutX="615.0" layoutY="14.0" mnemonicParsing="false" onAction="#generate" prefHeight="25.0"
-				prefWidth="171.0" text="Generate" AnchorPane.leftAnchor="615.0" AnchorPane.rightAnchor="15.0"
-				AnchorPane.topAnchor="15.0"/>
-		<Button layoutX="615.0" layoutY="54.0" mnemonicParsing="false" onAction="#validate" prefHeight="25.0"
-				prefWidth="171.0" text="Validate"/>
-		<Button layoutX="615.0" layoutY="92.0" mnemonicParsing="false" onAction="#clean" prefHeight="25.0"
-				prefWidth="171.0" text="Clean"/>
-		<Label fx:id="resultLabel" layoutX="615.0" layoutY="143.0" prefHeight="17.0" prefWidth="170.0" text="Label"
-		       textAlignment="CENTER" textFill="#006400" visible="false">
-			<font>
-				<Font size="14.0"/>
-			</font>
-		</Label>
+	<AnchorPane prefHeight="720.0" prefWidth="1280.0">
+		<VBox spacing="10" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+			<Button mnemonicParsing="false" onAction="#generate" prefHeight="25.0"
+			        prefWidth="171.0" text="Generate"/>
+			<Button mnemonicParsing="false" onAction="#validate" prefHeight="25.0"
+			        prefWidth="171.0" text="Validate"/>
+			<Button mnemonicParsing="false" onAction="#clean" prefHeight="25.0"
+			        prefWidth="171.0" text="Clean"/>
+			<Label fx:id="resultLabel" prefHeight="17.0" prefWidth="170.0" text="Label"
+			       textAlignment="CENTER" textFill="#006400">
+				<font>
+					<Font size="14.0"/>
+				</font>
+			</Label>
+		</VBox>
+
+		<Canvas fx:id="canvas" height="700.0" layoutX="200.0" layoutY="10.0" onMouseClicked="#onCanvasMouseClicked"
+		        onMouseMoved="#onCanvasMouseMove" width="1060.0" AnchorPane.leftAnchor="200.0"
+		        AnchorPane.topAnchor="0.0"/>
 	</AnchorPane>
 </GridPane>
