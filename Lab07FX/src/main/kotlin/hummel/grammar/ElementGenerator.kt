@@ -57,7 +57,7 @@ class ElementGenerator {
 		), TREE to UpRule(
 			dictionary[TREE]!!, dictionary[BRANCH_LAYER]!!, dictionary[BRANCH_LAYER]!!
 		), START_S to UpRule(
-			dictionary[START_S]!!, dictionary[RIGHT_45_DEG]!!, dictionary[BRANCH_LAYER]!!
+			dictionary[START_S]!!, dictionary[TREE]!!, dictionary[BRANCH_LAYER]!!
 		)/*, START_S to UpRule(
 			dictionary[START_S]!!, dictionary[HORIZONTAL_LINE]!!, dictionary[VERTICAL_LINE]!!
 		)*/
