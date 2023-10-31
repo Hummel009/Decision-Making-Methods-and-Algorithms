@@ -48,14 +48,13 @@ data class Element(val elementType: ElementType) {
 		}
 	}
 
-	constructor(elementType: ElementType, lines: List<Line>, startPosition: Point, endPosition: Point) : this(
-		elementType
-	) {
+	constructor(
+		elementType: ElementType, lines: List<Line>, startPosition: Point, endPosition: Point
+	) : this(elementType) {
 		this.lines.addAll(lines)
 		this.startPosition = startPosition
 		this.endPosition = endPosition
 	}
-
 
 	fun move(xDelta: Double, yDelta: Double) {
 		startPosition.move(xDelta, yDelta)
