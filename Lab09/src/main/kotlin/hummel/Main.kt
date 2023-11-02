@@ -42,7 +42,7 @@ object Launcher {
 	private fun info() {
 		network?.let {
 			println("The network is the perceptron for images ${imageSize.first}x${imageSize.second}.")
-		} ?: {
+		} ?: run {
 			println("The network does not exist!")
 		}
 	}
@@ -52,7 +52,7 @@ object Launcher {
 			print("Enter the folder path (example: ./test/data): ")
 			val path = scanner.nextLine()
 			trainNetworkCommand(path, mode)
-		} ?: {
+		} ?: run {
 			println("The network does not exist!")
 		}
 	}
@@ -68,19 +68,19 @@ object Launcher {
 			val file = File(name)
 			val image = file.loadImage()
 			image?.let {
-				if (image.height == imageSize.first && image.width == imageSize.second) {
-					val flatten = image.flatten()
-					val output = network.compute(BasicMLData(DoubleArray(flatten.size) {
-						flatten[it].toDouble()
+				if (it.height == imageSize.first && it.width == imageSize.second) {
+					val flatten = it.flatten()
+					val output = network.compute(BasicMLData(DoubleArray(flatten.size) { int ->
+						flatten[int].toDouble()
 					}))
 					println("Result: ${output.data.contentToString()}.")
 				} else {
 					println("Invalid image size!")
 				}
-			} ?: {
+			} ?: run {
 				println("The image does not exist!")
 			}
-		} ?: {
+		} ?: run {
 			println("The network does not exist!")
 		}
 	}
@@ -119,7 +119,7 @@ object Launcher {
 			} else {
 				println("Invalid directory!")
 			}
-		} ?: {
+		} ?: run {
 			println("The network does not exist!")
 		}
 	}
