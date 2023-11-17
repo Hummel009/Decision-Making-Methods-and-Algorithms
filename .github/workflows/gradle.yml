@@ -162,12 +162,12 @@ jobs:
         uses: gradle/gradle-build-action@main
         with:
           arguments: build
-          build-root-directory: ./Lab017
+          build-root-directory: ./Lab08
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
           name: compiled-artifact
-          path: ./Lab017/build/libs/*.jar
+          path: ./Lab08/build/libs/*.jar
 
   build9:
     runs-on: windows-latest
