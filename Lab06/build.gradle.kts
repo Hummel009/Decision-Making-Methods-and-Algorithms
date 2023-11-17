@@ -6,7 +6,7 @@ plugins {
 	id("application")
 }
 
-group = "org.example"
+group = "hummel"
 version = "v" + LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 
 repositories {
@@ -16,9 +16,15 @@ repositories {
 val embed: Configuration by configurations.creating
 
 dependencies {
-	embed("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.20")
+	embed("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
 	embed("io.github.pityka:hierarchical-clustering-fork:1.0-5")
 	implementation("io.github.pityka:hierarchical-clustering-fork:1.0-5")
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
 }
 
 application {
@@ -28,7 +34,11 @@ application {
 tasks {
 	jar {
 		manifest {
-			attributes(mapOf("Main-Class" to "hummel.MainKt"))
+			attributes(
+				mapOf(
+					"Main-Class" to "hummel.MainKt"
+				)
+			)
 		}
 		from(embed.map {
 			if (it.isDirectory) it else zipTree(it)
