@@ -18,12 +18,6 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
-}
-
-kotlin {
-	jvmToolchain(17)
 }
 
 application {
@@ -38,7 +32,11 @@ javafx {
 tasks {
 	jar {
 		manifest {
-			attributes(mapOf("Main-Class" to "hummel.MainKt"))
+			attributes(
+				mapOf(
+					"Main-Class" to "hummel.MainKt"
+				)
+			)
 		}
 		from(configurations.runtimeClasspath.get().map {
 			if (it.isDirectory) it else zipTree(it)
