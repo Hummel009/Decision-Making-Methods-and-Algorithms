@@ -149,7 +149,7 @@ jobs:
           name: compiled-artifact
           path: ./Lab07/build/libs/*.jar
 
-  build17:
+  build8:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@main
