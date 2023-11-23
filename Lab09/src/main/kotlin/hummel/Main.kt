@@ -4,24 +4,19 @@ import org.encog.ml.data.basic.BasicMLData
 import org.encog.neural.networks.BasicNetwork
 import java.awt.image.BufferedImage
 import java.io.File
-import java.nio.charset.StandardCharsets
-import java.util.*
-
-val scanner: Scanner = Scanner(System.`in`, StandardCharsets.UTF_8.name())
 
 fun main() {
 	Launcher.init()
-	loop@ while (true) {
+	while (true) {
 		print("Enter the command: ")
-		val command = scanner.nextLine()
+		val command = readln()
 
-		if (command == "exit") {
-			break@loop
+		if ("exit" == command) {
+			break
 		}
 
 		Launcher.functions[command]?.invoke() ?: println("Unknown command!")
 	}
-	scanner.close()
 }
 
 object Launcher {
@@ -50,7 +45,7 @@ object Launcher {
 	private fun train(mode: Int) {
 		network?.let {
 			print("Enter the folder path (example: ./test/data): ")
-			val path = scanner.nextLine()
+			val path = readln()
 			trainNetworkCommand(path, mode)
 		} ?: run {
 			println("The network does not exist!")
@@ -60,7 +55,7 @@ object Launcher {
 	private fun recognize() {
 		network?.let { network ->
 			print("Enter the image path (example: ./test/s-test.jpg): ")
-			val name = scanner.nextLine()
+			val name = readln()
 			if (!name.contains(VALUE)) {
 				name.utils()
 				return
@@ -87,9 +82,9 @@ object Launcher {
 
 	private fun create() {
 		print("Enter the height (example: 6): ")
-		val height = scanner.nextIntSafe()
+		val height = nextIntSafe()
 		print("Enter the width (example: 6): ")
-		val width = scanner.nextIntSafe()
+		val width = nextIntSafe()
 		imageSize = height to width
 		network = createNetwork(height * width * 3, 1)
 		println("The network was created.")
@@ -124,4 +119,3 @@ object Launcher {
 		}
 	}
 }
-

@@ -6,9 +6,9 @@ import java.io.IOException
 import java.util.*
 import javax.imageio.ImageIO
 
-fun Scanner.nextIntSafe(): Int {
+fun nextIntSafe(): Int {
 	return try {
-		nextLine().toInt()
+		readln().toInt()
 	} catch (e: Exception) {
 		print("Error! Enter the correct value: ")
 		nextIntSafe()
