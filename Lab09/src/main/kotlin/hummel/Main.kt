@@ -82,9 +82,9 @@ object Launcher {
 
 	private fun create() {
 		print("Enter the height (example: 6): ")
-		val height = nextIntSafe()
+		val height = readIntSafe()
 		print("Enter the width (example: 6): ")
-		val width = nextIntSafe()
+		val width = readIntSafe()
 		imageSize = height to width
 		network = createNetwork(height * width * 3, 1)
 		println("The network was created.")
