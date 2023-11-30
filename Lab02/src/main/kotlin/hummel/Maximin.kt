@@ -84,7 +84,5 @@ fun splitForClusters(points: Array<Point>, sites: List<Point>): Array<Cluster> {
 		}.forEach { n = it }
 		clusters[n].add(point)
 	}
-	return Array(sites.size) { index ->
-		Cluster(sites[index], clusters[index].toTypedArray())
-	}
+	return Array(sites.size) { index -> Cluster(sites[index], clusters[index].toTypedArray()) }
 }
