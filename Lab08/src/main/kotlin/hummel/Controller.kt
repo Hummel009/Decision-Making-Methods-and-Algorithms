@@ -83,7 +83,7 @@ class Controller {
 			grammar = generator.grammar
 			grammarLabel.text = generator.grammar.toString()
 		} catch (e: InvalidElementException) {
-			resultLabel.text = e.toString()
+			resultLabel.text = "$e"
 			grammarLabel.text = ""
 		}
 

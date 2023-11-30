@@ -26,12 +26,12 @@ object Launcher {
 
 	fun init() {
 		functions.clear()
-		functions["commands"] = this::showAllCommands
-		functions["create"] = this::create
-		functions["recognize"] = this::recognize
+		functions["commands"] = ::showAllCommands
+		functions["create"] = ::create
+		functions["recognize"] = ::recognize
 		functions["train"] = { train(1) }
 		functions["punish"] = { train(0) }
-		functions["info"] = this::info
+		functions["info"] = ::info
 	}
 
 	private fun info() {
@@ -57,8 +57,8 @@ object Launcher {
 			print("Enter the image path (example: ./test/s-test.jpg): ")
 			val name = readln()
 			if (!name.contains(VALUE)) {
-				name.utils()
-				return
+				utils()
+				return@recognize
 			}
 			val file = File(name)
 			val image = file.loadImage()

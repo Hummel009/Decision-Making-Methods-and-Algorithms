@@ -54,13 +54,11 @@ class GrammarGenerator(drawnElements: MutableList<Element>) {
 		return null
 	}
 
-	private fun isFirstInRule(rule: Rule, candidate: Element, elements: List<Element>): Boolean {
-		return elements.none { isDifferentElementInRule(rule, candidate, it) }
-	}
+	private fun isFirstInRule(rule: Rule, candidate: Element, elements: List<Element>): Boolean =
+		elements.none { isDifferentElementInRule(rule, candidate, it) }
 
-	private fun isSecondInRule(rule: Rule, candidate: Element, elements: List<Element>): Boolean {
-		return elements.none { isDifferentElementInRule(rule, it, candidate) }
-	}
+	private fun isSecondInRule(rule: Rule, candidate: Element, elements: List<Element>): Boolean =
+		elements.none { isDifferentElementInRule(rule, it, candidate) }
 
 	private fun isDifferentElementInRule(rule: Rule, candidate: Element, element: Element): Boolean {
 		return !candidate.startPosition.isSame(element.startPosition) && !candidate.endPosition.isSame(element.endPosition) && !rule.isRulePositionPare(
@@ -72,7 +70,6 @@ class GrammarGenerator(drawnElements: MutableList<Element>) {
 class RuleSearchResult(
 	private val rule: Rule, private val firstElementType: ElementType, private val secondElementType: ElementType
 ) {
-	fun getRule(startElementType: ElementType): Rule {
-		return rule.getInstance(startElementType, firstElementType, secondElementType)
-	}
+	fun getRule(startElementType: ElementType): Rule =
+		rule.getInstance(startElementType, firstElementType, secondElementType)
 }

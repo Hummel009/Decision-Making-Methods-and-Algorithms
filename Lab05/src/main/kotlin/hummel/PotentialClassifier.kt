@@ -48,21 +48,15 @@ data class PotentialCoefficients(val first: Double, val second: Double, val thir
 		)
 	}
 
-	operator fun times(c: Double): PotentialCoefficients {
-		return PotentialCoefficients(c * first, c * second, c * third, c * fourth)
-	}
+	operator fun times(c: Double): PotentialCoefficients =
+		PotentialCoefficients(c * first, c * second, c * third, c * fourth)
 
-	fun substitutePoint(point: ClassifiedPoint): PotentialCoefficients {
-		return PotentialCoefficients(first, second * point.x, third * point.y, fourth * point.x * point.y)
-	}
+	fun substitutePoint(point: ClassifiedPoint): PotentialCoefficients =
+		PotentialCoefficients(first, second * point.x, third * point.y, fourth * point.x * point.y)
 
-	fun getPotentialFunction(): PotentialFunction {
-		return { (x, y, _) -> first + second * x + third * y + fourth * x * y }
-	}
+	fun getPotentialFunction(): PotentialFunction = { (x, y, _) -> first + second * x + third * y + fourth * x * y }
 
-	fun getChartFunction(): ChartFunction {
-		return { -(first + second * it) / (third + fourth * it) }
-	}
+	fun getChartFunction(): ChartFunction = { -(first + second * it) / (third + fourth * it) }
 
 	override fun toString(): String = "$first + ($second)*X + ($third)*Y + ($fourth)*X*Y"
 }

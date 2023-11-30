@@ -8,6 +8,7 @@ fun <T> Array<T>.deepEquals(other: Array<T>): Boolean = this.contentDeepEquals(o
 // класс точки, функция расстояния погипотенузе
 data class Point(val x: Int, val y: Int) {
 	fun distanceTo(p: Point): Double = distanceTo(p.x, p.y)
+
 	private fun distanceTo(x: Int, y: Int): Double = hypot((this.x - x).toDouble(), (this.y - y).toDouble())
 }
 
@@ -60,11 +61,9 @@ fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> 
 	// Проход по всем точкам и определение, к какому кластеру они принадлежат
 	for (point in points) {
 		var n = 0
-		for (i in 0..sites.lastIndex) {
-			if (sites[i].distanceTo(point) < sites[n].distanceTo(point)) {
-				n = i
-			}
-		}
+		(0..sites.lastIndex).asSequence().filter {
+			sites[it].distanceTo(point) < sites[n].distanceTo(point)
+		}.forEach { n = it }
 		clusters[n].add(point)
 	}
 	// Создание массива кластеров с информацией о кластерах
@@ -74,10 +73,10 @@ fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> 
 }
 
 // Функция для кластеризации методом k-средних
+@Suppress("NAME_SHADOWING")
 fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<Cluster> {
 	var clusters: Array<Cluster>
 
-	@Suppress("NAME_SHADOWING")
 	// Инициализация переменной i для отслеживания количества итераций
 	var sites = sites
 	var i = 0

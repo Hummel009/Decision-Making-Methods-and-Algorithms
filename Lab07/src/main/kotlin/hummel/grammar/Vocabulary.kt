@@ -7,7 +7,7 @@ interface Type {
 open class ElementType(val name: String) : Type {
 	override fun isTerminal(): Boolean = false
 
-	fun isSame(compared: ElementType): Boolean = this.name == compared.name
+	fun isSame(compared: ElementType): Boolean = name == compared.name
 }
 
 class TerminalElementType(name: String, private val standardLine: Line) : ElementType(name) {

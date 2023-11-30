@@ -49,15 +49,15 @@ class ElementGenerator {
 
 	private fun createRules() = mapOf(
 		LEFT_BRANCH to LeftRule(
-			dictionary[LEFT_BRANCH]!!, dictionary[RIGHT_45_DEG]!!, dictionary[VERTICAL_LINE]!!
+			dictionary.getValue(LEFT_BRANCH), dictionary.getValue(RIGHT_45_DEG), dictionary.getValue(VERTICAL_LINE)
 		), RIGHT_BRANCH to LeftRule(
-			dictionary[RIGHT_BRANCH]!!, dictionary[VERTICAL_LINE]!!, dictionary[LEFT_45_DEG]!!
+			dictionary.getValue(RIGHT_BRANCH), dictionary.getValue(VERTICAL_LINE), dictionary.getValue(LEFT_45_DEG)
 		), BRANCH_LAYER to LeftRule(
-			dictionary[BRANCH_LAYER]!!, dictionary[LEFT_BRANCH]!!, dictionary[RIGHT_BRANCH]!!
+			dictionary.getValue(BRANCH_LAYER), dictionary.getValue(LEFT_BRANCH), dictionary.getValue(RIGHT_BRANCH)
 		), TREE to UpRule(
-			dictionary[TREE]!!, dictionary[BRANCH_LAYER]!!, dictionary[BRANCH_LAYER]!!
+			dictionary.getValue(TREE), dictionary.getValue(BRANCH_LAYER), dictionary.getValue(BRANCH_LAYER)
 		), START_S to UpRule(
-			dictionary[START_S]!!, dictionary[TREE]!!, dictionary[BRANCH_LAYER]!!
+			dictionary.getValue(START_S), dictionary.getValue(TREE), dictionary.getValue(BRANCH_LAYER)
 		)/*, START_S to UpRule(
 			dictionary[START_S]!!, dictionary[HORIZONTAL_LINE]!!, dictionary[VERTICAL_LINE]!!
 		)*/
@@ -65,7 +65,7 @@ class ElementGenerator {
 
 	fun getTerminalElement(line: Line): Element {
 		val elementName = getTerminalElementName(line)
-		return Element(dictionary[elementName]!!, line)
+		return Element(dictionary.getValue(elementName), line)
 	}
 
 	private fun getTerminalElementName(line: Line): String {
@@ -98,7 +98,7 @@ class ElementGenerator {
 			return (elementType as TerminalElementType).getStandardElement()
 		}
 
-		val rule = rules[elementType.name]!!
+		val rule = rules.getValue(elementType.name)
 		return rule.transformConnect(
 			generateElement(rule.firstElementType), generateElement(rule.secondElementType)
 		)

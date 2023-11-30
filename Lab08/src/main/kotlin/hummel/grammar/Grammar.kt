@@ -80,6 +80,6 @@ class Grammar {
 			)
 			result.append("\n")
 		}
-		return result.toString()
+		return "$result"
 	}
 }

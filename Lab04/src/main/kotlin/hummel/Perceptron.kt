@@ -22,7 +22,7 @@ fun imageToPixelArray(fileName: String): IntArray {
 }
 
 private fun <E> List<E>.randomItem(action: (item: E) -> Unit) {
-	action(this[random.nextInt(this.size)])
+	action(this[random.nextInt(size)])
 }
 
 data class PictureImage(val pixelArray: IntArray, var isTargetImage: Boolean) {
@@ -86,21 +86,13 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 	// Метод для наказания персептрона в случае неверного выхода.
 	private fun punish(image: PictureImage) {
 		// Проходим по всем пикселям изображения и уменьшаем соответствующие веса, если пиксель активен (1).
-		for (i in weights.indices) {
-			if (image.pixelArray[i] == 1) {
-				weights[i]--
-			}
-		}
+		weights.indices.asSequence().filter { image.pixelArray[it] == 1 }.forEach { weights[it]-- }
 	}
 
 	// Метод для стимулирования персептрона в случае неверного выхода.
 	private fun stimulate(image: PictureImage) {
 		// Проходим по всем пикселям изображения и увеличиваем соответствующие веса, если пиксель активен (1).
-		for (i in weights.indices) {
-			if (image.pixelArray[i] == 1) {
-				weights[i]++
-			}
-		}
+		weights.indices.asSequence().filter { image.pixelArray[it] == 1 }.forEach { weights[it]++ }
 	}
 
 	// Метод для вычисления выхода персептрона

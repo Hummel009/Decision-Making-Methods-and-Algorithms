@@ -32,8 +32,10 @@ data class Cluster(val site: Point, val points: Array<Point>) {
 
 data class Point(val x: Int, val y: Int) {
 	fun distanceTo(p: Point): Double = distanceTo(p.x, p.y)
-	private fun distanceTo(x: Int, y: Int): Double = hypot((this.x - x).toDouble(), (this.y - y).toDouble())
+
 	fun farthestPointOf(points: Array<Point>): Point = points.maxBy { this.distanceTo(it) }
+
+	private fun distanceTo(x: Int, y: Int): Double = hypot((this.x - x).toDouble(), (this.y - y).toDouble())
 }
 
 data class Distance(var a: Point, var b: Point) {
@@ -48,8 +50,8 @@ fun clusterByMaximin(points: Array<Point>): Array<Cluster> {
 	var clusters = splitForClusters(points, sites)
 	while (newSite != null) {
 		newSite = chooseNewSite(clusters)
-		if (newSite != null) {
-			sites.add(newSite)
+		newSite?.let {
+			sites.add(it)
 			clusters = splitForClusters(points, sites)
 		}
 	}
@@ -77,11 +79,9 @@ fun splitForClusters(points: Array<Point>, sites: List<Point>): Array<Cluster> {
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
 	for (point in points) {
 		var n = 0
-		for (i in 0..sites.lastIndex) {
-			if (sites[i].distanceTo(point) < sites[n].distanceTo(point)) {
-				n = i
-			}
-		}
+		(0..sites.lastIndex).asSequence().filter {
+			sites[it].distanceTo(point) < sites[n].distanceTo(point)
+		}.forEach { n = it }
 		clusters[n].add(point)
 	}
 	return Array(sites.size) { index ->

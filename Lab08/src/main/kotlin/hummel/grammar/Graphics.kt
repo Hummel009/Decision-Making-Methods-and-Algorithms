@@ -12,9 +12,7 @@ data class Point(var x: Double, var y: Double) {
 		y += deltaY
 	}
 
-	fun isSame(other: Point): Boolean {
-		return other.x > x - 0.01 && other.x < x + 0.01 && other.y > y - 0.01 && other.y < y + 0.01
-	}
+	fun isSame(other: Point): Boolean = other.x > x - 0.01 && other.x < x + 0.01 && other.y > y - 0.01 && other.y < y + 0.01
 }
 
 data class Line(var from: Point, var to: Point) {

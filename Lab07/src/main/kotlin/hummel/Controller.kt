@@ -38,10 +38,7 @@ class Controller {
 		val element = generator.generateElement()
 		drawer.draw(element)
 
-		for (line in element.lines) {
-			val terminal = generator.getTerminalElement(line)
-			drawedElements.add(terminal)
-		}
+		element.lines.map { generator.getTerminalElement(it) }.forEach { drawedElements.add(it) }
 	}
 
 	fun validate() {

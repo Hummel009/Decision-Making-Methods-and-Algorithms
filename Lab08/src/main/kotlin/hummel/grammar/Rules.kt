@@ -23,7 +23,7 @@ class UpRule(
 ) : Rule(startElementType, firstElementType, secondElementType) {
 
 	companion object {
-		val NONE: UpRule = UpRule(ElementType.NONE, ElementType.NONE, ElementType.NONE);
+		val NONE: UpRule = UpRule(ElementType.NONE, ElementType.NONE, ElementType.NONE)
 	}
 
 	override fun connect(first: Element, second: Element): Element {
@@ -38,9 +38,7 @@ class UpRule(
 		return connect(first, second)
 	}
 
-	override fun isRulePositionPare(first: Element, second: Element): Boolean {
-		return second.startPosition.y - RANDOM_DELTA < first.endPosition.y
-	}
+	override fun isRulePositionPare(first: Element, second: Element): Boolean = second.startPosition.y - RANDOM_DELTA < first.endPosition.y
 
 	override fun getInstance(
 		startElementType: ElementType, firstElementType: ElementType, secondElementType: ElementType
@@ -54,13 +52,9 @@ class UpRule(
 		shortestElement.resize(longestElement.length / shortestElement.length, 1.0)
 	}
 
-	private fun getLongestElement(first: Element, second: Element): Element {
-		return if (first.length > second.length) first else second
-	}
+	private fun getLongestElement(first: Element, second: Element): Element = if (first.length > second.length) first else second
 
-	private fun getShortestElement(first: Element, second: Element): Element {
-		return if (first.length < second.length) first else second
-	}
+	private fun getShortestElement(first: Element, second: Element): Element = if (first.length < second.length) first else second
 }
 
 class LeftRule(
@@ -68,7 +62,7 @@ class LeftRule(
 ) : Rule(startElementType, firstElementType, secondElementType) {
 
 	companion object {
-		val NONE: LeftRule = LeftRule(ElementType.NONE, ElementType.NONE, ElementType.NONE);
+		val NONE: LeftRule = LeftRule(ElementType.NONE, ElementType.NONE, ElementType.NONE)
 	}
 
 	override fun connect(first: Element, second: Element): Element {
@@ -86,9 +80,7 @@ class LeftRule(
 		return connect(first, second)
 	}
 
-	override fun isRulePositionPare(first: Element, second: Element): Boolean {
-		return first.endPosition.x - RANDOM_DELTA < second.startPosition.x
-	}
+	override fun isRulePositionPare(first: Element, second: Element): Boolean = first.endPosition.x - RANDOM_DELTA < second.startPosition.x
 
 	override fun getInstance(
 		startElementType: ElementType, firstElementType: ElementType, secondElementType: ElementType

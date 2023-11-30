@@ -1,6 +1,6 @@
 package hummel
 
-fun String.utils() {
+fun utils() {
 	println("Result: [0.1313264214748087].")
 }
 

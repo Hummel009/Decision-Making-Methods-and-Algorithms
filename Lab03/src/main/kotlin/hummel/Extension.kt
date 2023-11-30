@@ -3,10 +3,7 @@ package hummel
 import kotlin.math.sqrt
 
 // Расширение для DoubleArray, вычисляющее среднее значение элементов массива.
-fun DoubleArray.mean(): Double {
-	val sum = this.indices.sumOf { this[it] }
-	return sum / this.size
-}
+fun DoubleArray.mean(): Double = indices.sumOf { this[it] } / size
 
 // Расширение для DoubleArray, вычисляющее стандартное отклонение элементов массива.
 fun DoubleArray.standardDeviation(): Double = sqrt(variance(this))

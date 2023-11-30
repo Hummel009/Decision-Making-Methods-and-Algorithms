@@ -19,11 +19,9 @@ fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> 
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
 	for (point in points) {
 		var n = 0
-		for (i in 0..sites.lastIndex) {
-			if (sites[i].distanceTo(point) < sites[n].distanceTo(point)) {
-				n = i
-			}
-		}
+		(0..sites.lastIndex).asSequence().filter {
+			sites[it].distanceTo(point) < sites[n].distanceTo(point)
+		}.forEach { n = it }
 		clusters[n].add(point)
 	}
 	return Array(sites.size) { index ->
@@ -31,11 +29,10 @@ fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> 
 	}
 }
 
-
+@Suppress("NAME_SHADOWING")
 fun clusterByKMeans(points: Array<Point>, sites: Array<Point>): Array<Cluster> {
 	var clusters: Array<Cluster>
 
-	@Suppress("NAME_SHADOWING")
 	var sites = sites
 	var i = 0
 	do {
