@@ -57,30 +57,26 @@ class Controller {
 	}
 
 	fun onCanvasMouseClicked(mouseEvent: MouseEvent) {
-		from = if (from == null) {
-			Point(mouseEvent.x, mouseEvent.y)
-		} else {
+		from = from?.let {
 			val to = Point(mouseEvent.x, mouseEvent.y)
-			drawer.drawLine(from ?: return, to)
-			drawedLines.add(Line(from ?: return, to))
+			drawer.drawLine(it, to)
+			drawedLines.add(Line(it, to))
 
-			val factFrom = drawer.getFactPoint(from ?: return)
+			val factFrom = drawer.getFactPoint(it)
 			val factTo = drawer.getFactPoint(to)
 			val line = Line(factFrom, factTo)
 			val drewElement = generator.getTerminalElement(line)
 			drawedElements.add(drewElement)
 
 			null
-		}
+		} ?: Point(mouseEvent.x, mouseEvent.y)
 	}
 
 	fun onCanvasMouseMove(mouseEvent: MouseEvent) {
-		if (from != null) {
+		from?.let {
 			drawer.cleanCanvas()
-			for (line in drawedLines) {
-				drawer.drawLine(line)
-			}
-			drawer.drawLine(from ?: return, Point(mouseEvent.x, mouseEvent.y))
+			drawedLines.forEach { l -> drawer.drawLine(l) }
+			drawer.drawLine(it, Point(mouseEvent.x, mouseEvent.y))
 		}
 	}
 }

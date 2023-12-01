@@ -11,12 +11,10 @@ fun imageToPixelArray(fileName: String): IntArray {
 	val file = File(classLoader.getResource(fileName)!!.file)
 	val image = ImageIO.read(file)
 	// Создаем массив для хранения пикселей (0 - белый, 1 - черный)
-	val pixels = IntArray(image.width * image.height)
-	for (x in 0 until image.width) {
-		for (y in 0 until image.height) {
-			// Преобразуем цвет пикселя в 0 или 1 и сохраняем в массиве
-			pixels[x * image.width + y] = (if (image.getRGB(x, y) == 0xFFFFFFFF.toInt()) 0 else 1)
-		}
+	val pixels = IntArray(image.width * image.height) { index ->
+		val x = index % image.width
+		val y = index / image.width
+		if (image.getRGB(x, y) == 0xFFFFFFFF.toInt()) 0 else 1
 	}
 	return pixels
 }
@@ -65,7 +63,7 @@ class Perceptron(imagePixelCount: Int, val iterationCount: Int) {
 
 	// Метод для обучения персептрона на заданном наборе обучающих изображений.
 	fun train(trainingSet: List<PictureImage>) {
-		for (it in 1..iterationCount) {
+		repeat(iterationCount - 1) {
 			trainingSet.randomItem {
 				// Вычисляем вывод персептрона для выбранного изображения.
 				val isTargetImage = isTargetImage(it)

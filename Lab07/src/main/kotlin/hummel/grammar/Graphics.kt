@@ -59,9 +59,7 @@ data class Element(val elementType: ElementType) {
 	fun move(xDelta: Double, yDelta: Double) {
 		startPosition.move(xDelta, yDelta)
 		endPosition.move(xDelta, yDelta)
-		for (line in lines) {
-			line.move(xDelta, yDelta)
-		}
+		lines.forEach { it.move(xDelta, yDelta) }
 	}
 
 	fun resize(xScale: Double, yScale: Double) {
@@ -69,9 +67,7 @@ data class Element(val elementType: ElementType) {
 		val deltaY = (endPosition.y - startPosition.y) * yScale
 
 		endPosition = Point(startPosition.x + deltaX, startPosition.y + deltaY)
-		for (line in lines) {
-			line.resize(xScale, yScale, startPosition)
-		}
+		lines.forEach { it.resize(xScale, yScale, startPosition) }
 	}
 
 	infix fun isSameTypeWith(compared: ElementType): Boolean = elementType.isSame(compared)

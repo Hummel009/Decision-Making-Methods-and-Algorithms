@@ -29,15 +29,18 @@ class UpRule(
 
 	override fun transformConnect(first: Element, second: Element): Element {
 		makeSameLength(first, second)
-		first.move(0.0, second.startPosition.y /*+ randomDouble(0.0, 2.0)*/)
+		first.move(0.0, second.startPosition.y)
 		return connect(first, second)
 	}
 
-	override fun isRulePair(first: Element, second: Element): Boolean = !(!(first isSameTypeWith firstElementType) || !(second isSameTypeWith secondElementType)) && (second.startPosition.y - RANDOM_DELTA < first.endPosition.y)
+	override fun isRulePair(first: Element, second: Element): Boolean =
+		!(!(first isSameTypeWith firstElementType) || !(second isSameTypeWith secondElementType)) && (second.startPosition.y - RANDOM_DELTA < first.endPosition.y)
 
-	private fun getLongestElement(first: Element, second: Element): Element = if (first.length() > second.length()) first else second
+	private fun getLongestElement(first: Element, second: Element): Element =
+		if (first.length() > second.length()) first else second
 
-	private fun getShortestElement(first: Element, second: Element): Element = if (first.length() < second.length()) first else second
+	private fun getShortestElement(first: Element, second: Element): Element =
+		if (first.length() < second.length()) first else second
 }
 
 class LeftRule(
@@ -60,5 +63,6 @@ class LeftRule(
 		return connect(first, second)
 	}
 
-	override fun isRulePair(first: Element, second: Element): Boolean = !(!(first isSameTypeWith firstElementType) || !(second isSameTypeWith secondElementType)) && (second.startPosition.y - RANDOM_DELTA < first.endPosition.y)
+	override fun isRulePair(first: Element, second: Element): Boolean =
+		!(!(first isSameTypeWith firstElementType) || !(second isSameTypeWith secondElementType)) && (second.startPosition.y - RANDOM_DELTA < first.endPosition.y)
 }

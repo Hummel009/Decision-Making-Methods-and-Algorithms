@@ -44,9 +44,7 @@ data class Distance(var a: Point, var b: Point) {
 
 fun clusterByMaximin(points: Array<Point>): Array<Cluster> {
 	var newSite = points.randomElement()
-	val sites = mutableListOf(
-		newSite!!, newSite.farthestPointOf(points)
-	)
+	val sites = mutableListOf(newSite!!, newSite.farthestPointOf(points))
 	var clusters = splitForClusters(points, sites)
 	while (newSite != null) {
 		newSite = chooseNewSite(clusters)
@@ -76,13 +74,20 @@ fun averageSitesDistanceOf(sites: Array<Point>): Double {
 }
 
 fun splitForClusters(points: Array<Point>, sites: List<Point>): Array<Cluster> {
+	// Создание массива кластеров
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
-	for (point in points) {
+	// Проход по всем точкам и определение, к какому кластеру они принадлежат
+	points.forEach { point ->
 		var n = 0
-		(0..sites.lastIndex).asSequence().filter {
-			sites[it].distanceTo(point) < sites[n].distanceTo(point)
-		}.forEach { n = it }
+		val closestSite = sites.minByOrNull { it.distanceTo(point) }
+		val closestSiteDistance = closestSite?.distanceTo(point)
+
+		closestSiteDistance?.let { dist ->
+			val closestSiteIndex = sites.indexOfFirst { it.distanceTo(point) == dist }
+			n = closestSiteIndex
+		}
 		clusters[n].add(point)
 	}
+	// Создание массива кластеров с информацией о кластерах
 	return Array(sites.size) { index -> Cluster(sites[index], clusters[index].toTypedArray()) }
 }

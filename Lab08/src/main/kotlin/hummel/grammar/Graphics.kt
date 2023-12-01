@@ -12,7 +12,8 @@ data class Point(var x: Double, var y: Double) {
 		y += deltaY
 	}
 
-	fun isSame(other: Point): Boolean = other.x > x - 0.01 && other.x < x + 0.01 && other.y > y - 0.01 && other.y < y + 0.01
+	fun isSame(other: Point): Boolean =
+		other.x > x - 0.01 && other.x < x + 0.01 && other.y > y - 0.01 && other.y < y + 0.01
 }
 
 data class Line(var from: Point, var to: Point) {
@@ -63,9 +64,7 @@ class Element(val elementType: ElementType) {
 	fun move(xDelta: Double, yDelta: Double) {
 		startPosition.move(xDelta, yDelta)
 		endPosition.move(xDelta, yDelta)
-		for (line in lines) {
-			line.move(xDelta, yDelta)
-		}
+		lines.forEach { it.move(xDelta, yDelta) }
 	}
 
 	fun resize(xScale: Double, yScale: Double) {
@@ -73,8 +72,6 @@ class Element(val elementType: ElementType) {
 		val deltaY = (endPosition.y - startPosition.y) * yScale
 
 		endPosition = Point(startPosition.x + deltaX, startPosition.y + deltaY)
-		for (line in lines) {
-			line.resize(xScale, yScale, startPosition)
-		}
+		lines.forEach { it.resize(xScale, yScale, startPosition) }
 	}
 }

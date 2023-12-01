@@ -20,7 +20,7 @@ fun generateVector(length: Int, mean: Double, derivation: Double): DoubleArray =
 
 // Возвращает минимальное и максимальное значения из объединения двух массивов.
 fun getInterval(firstVector: DoubleArray, secondVector: DoubleArray): Pair<Double, Double> {
-	val allPoints = firstVector.plus(secondVector)
+	val allPoints = firstVector + secondVector
 	return allPoints.min() to allPoints.max()
 }
 
@@ -42,16 +42,7 @@ fun generateProbabilityDensityFunction(
 fun getAreas(
 	y1Values: DoubleArray, y2Values: DoubleArray, step: Double, xValues: DoubleArray, separatorI: Int
 ): Pair<Double, Double> {
-	var detectionMistake = 0.0
-	var falseAlarm = 0.0
-
-	for (i in xValues.indices) {
-		if (i < separatorI) {
-			falseAlarm += step * y2Values[i]
-		} else {
-			detectionMistake += step * y1Values[i]
-		}
-	}
-
+	val falseAlarm = xValues.indices.takeWhile { it < separatorI }.sumOf { step * y2Values[it] }
+	val detectionMistake = xValues.indices.dropWhile { it < separatorI }.sumOf { step * y1Values[it] }
 	return detectionMistake to falseAlarm
 }

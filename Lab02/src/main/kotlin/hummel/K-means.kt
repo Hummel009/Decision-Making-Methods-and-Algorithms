@@ -1,11 +1,11 @@
 package hummel
 
-fun <T> Array<T>.deepEquals(other: Array<T>): Boolean = this.contentDeepEquals(other)
+fun <T> Array<T>.deepEquals(other: Array<T>): Boolean = contentDeepEquals(other)
 
 fun centroidOf(points: Array<Point>): Point {
 	var centerX = 0.0
 	var centerY = 0.0
-	for ((x, y) in points) {
+	points.forEach { (x, y) ->
 		centerX += x
 		centerY += y
 	}
@@ -16,17 +16,22 @@ fun centroidOf(points: Array<Point>): Point {
 }
 
 fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> {
+	// Создание массива кластеров
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
-	for (point in points) {
+	// Проход по всем точкам и определение, к какому кластеру они принадлежат
+	points.forEach { point ->
 		var n = 0
-		(0..sites.lastIndex).asSequence().filter {
-			sites[it].distanceTo(point) < sites[n].distanceTo(point)
-		}.forEach { n = it }
+		val closestSite = sites.minByOrNull { it.distanceTo(point) }
+		val closestSiteDistance = closestSite?.distanceTo(point)
+
+		closestSiteDistance?.let { dist ->
+			val closestSiteIndex = sites.indexOfFirst { it.distanceTo(point) == dist }
+			n = closestSiteIndex
+		}
 		clusters[n].add(point)
 	}
-	return Array(sites.size) { index ->
-		Cluster(sites[index], clusters[index].toTypedArray())
-	}
+	// Создание массива кластеров с информацией о кластерах
+	return Array(sites.size) { index -> Cluster(sites[index], clusters[index].toTypedArray()) }
 }
 
 @Suppress("NAME_SHADOWING")

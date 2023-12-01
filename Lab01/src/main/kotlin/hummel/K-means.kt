@@ -3,7 +3,7 @@ package hummel
 import kotlin.math.hypot
 
 // сравниваем содержимое массивов
-fun <T> Array<T>.deepEquals(other: Array<T>): Boolean = this.contentDeepEquals(other)
+fun <T> Array<T>.deepEquals(other: Array<T>): Boolean = contentDeepEquals(other)
 
 // класс точки, функция расстояния погипотенузе
 data class Point(val x: Int, val y: Int) {
@@ -44,7 +44,7 @@ data class Cluster(val site: Point, val points: Array<Point>) {
 fun centroidOf(points: Array<Point>): Point {
 	var centerX = 0.0
 	var centerY = 0.0
-	for ((x, y) in points) {
+	points.forEach { (x, y) ->
 		centerX += x
 		centerY += y
 	}
@@ -59,17 +59,19 @@ fun splitForClusters(points: Array<Point>, sites: Array<Point>): Array<Cluster> 
 	// Создание массива кластеров
 	val clusters = Array(sites.size) { mutableListOf<Point>() }
 	// Проход по всем точкам и определение, к какому кластеру они принадлежат
-	for (point in points) {
+	points.forEach { point ->
 		var n = 0
-		(0..sites.lastIndex).asSequence().filter {
-			sites[it].distanceTo(point) < sites[n].distanceTo(point)
-		}.forEach { n = it }
+		val closestSite = sites.minByOrNull { it.distanceTo(point) }
+		val closestSiteDistance = closestSite?.distanceTo(point)
+
+		closestSiteDistance?.let { dist ->
+			val closestSiteIndex = sites.indexOfFirst { it.distanceTo(point) == dist }
+			n = closestSiteIndex
+		}
 		clusters[n].add(point)
 	}
 	// Создание массива кластеров с информацией о кластерах
-	return Array(sites.size) { index ->
-		Cluster(sites[index], clusters[index].toTypedArray())
-	}
+	return Array(sites.size) { index -> Cluster(sites[index], clusters[index].toTypedArray()) }
 }
 
 // Функция для кластеризации методом k-средних

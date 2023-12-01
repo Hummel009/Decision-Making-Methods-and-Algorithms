@@ -19,7 +19,7 @@ class Drawer(private val canvas: Canvas) {
 		canvas.graphicsContext2D.stroke = Color.BLACK
 
 		val lines = element.lines
-		for ((start, end) in lines) {
+		lines.forEach { (start, end) ->
 			val x1 = getXCanvasCoordinate(start.x)
 			val x2 = getXCanvasCoordinate(end.x)
 			val y1 = getYCanvasCoordinate(start.y)
@@ -34,9 +34,7 @@ class Drawer(private val canvas: Canvas) {
 		canvas.graphicsContext2D.strokeLine(from.x, from.y, to.x, to.y)
 	}
 
-	fun drawLine(line: Line) {
-		drawLine(line.start, line.end)
-	}
+	fun drawLine(line: Line): Unit = drawLine(line.start, line.end)
 
 	fun getFactPoint(canvasPoint: Point): Point {
 		val factX = getXFactCoordinate(canvasPoint.x)

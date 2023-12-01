@@ -21,7 +21,7 @@ class Drawer(private val canvas: Canvas) {
 		canvas.graphicsContext2D.stroke = Color.BLACK
 
 		val lines = element.lines
-		for ((from, to) in lines) {
+		lines.forEach { (from, to) ->
 			val x1 = getXCanvasCoordinate(from.x)
 			val x2 = getXCanvasCoordinate(to.x)
 			val y1 = getYCanvasCoordinate(from.y)

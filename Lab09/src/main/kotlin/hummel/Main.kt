@@ -91,9 +91,7 @@ object Launcher {
 	}
 
 	private fun showAllCommands() {
-		for (item in functions.keys) {
-			println(item)
-		}
+		functions.keys.forEach { println(it) }
 	}
 
 	private fun trainNetworkCommand(path: String, output: Int) {
@@ -103,9 +101,9 @@ object Launcher {
 				val images = mutableListOf<BufferedImage>()
 				dir.listFiles()?.forEach {
 					val image = it.loadImage()
-					image?.let {
-						if (image.height == imageSize.first && image.width == imageSize.second) {
-							images.add(image)
+					image?.let { img ->
+						if (img.height == imageSize.first && img.width == imageSize.second) {
+							images.add(img)
 						}
 					}
 				}

@@ -37,16 +37,10 @@ fun main() {
 
 	// Нахождение места пересечения колоколов вероятности
 	val firstIsBigger = y1Values[0] > y2Values[0]
-	var separatorI = 0
-	for (i in xValues.indices) {
-		val rule = if (firstIsBigger) y2Values[i] >= y1Values[i] else y1Values[i] > y2Values[i]
-
-		if (rule) {
-			separatorI = i
-			println("arr[$i]=${xValues[i]}")
-			break
-		}
-	}
+	val separatorI = xValues.indices.filterIndexed { _, i ->
+		if (firstIsBigger) y2Values[i] >= y1Values[i] else y1Values[i] > y2Values[i]
+	}.first()
+	println("arr[$separatorI]=${xValues[separatorI]}")
 
 	// Вычисление областей под кривыми и отрисовка графика с информацией о долях ошибок.
 	val areas = getAreas(y1Values, y2Values, STEP, xValues, separatorI)

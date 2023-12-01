@@ -32,21 +32,20 @@ class Controller {
 
 	fun generate() {
 		drawer.cleanCanvas()
-		if (grammar != null) {
-			val element = (grammar ?: return).generateElement()
+		grammar?.let { g ->
+			val element = g.generateElement()
 			drawer.draw(element)
 
 			drawnElements.clear()
 			drawnLines.clear()
-			for (line in element.lines) {
-				val terminal = Grammar.getTerminalElement(line)
+			element.lines.forEach {
+				val terminal = Grammar.getTerminalElement(it)
 				drawnElements.add(terminal)
-				drawnLines.add(line)
+				drawnLines.add(it)
 			}
-		} else {
+		} ?: run {
 			resultLabel.text = "No grammar."
 		}
-
 	}
 
 	fun clean() {
@@ -59,21 +58,19 @@ class Controller {
 	}
 
 	fun onCanvasMouseClicked(mouseEvent: MouseEvent) {
-		from = if (from == null) {
-			Point(mouseEvent.x, mouseEvent.y)
-		} else {
+		from = from?.let {
 			val to = Point(mouseEvent.x, mouseEvent.y)
-			drawer.drawLine(from ?: return, to)
-			drawnLines.add(Line(from ?: return, to))
+			drawer.drawLine(it, to)
+			drawnLines.add(Line(it, to))
 
-			val factFrom = drawer.getFactPoint(from ?: return)
+			val factFrom = drawer.getFactPoint(it)
 			val factTo = drawer.getFactPoint(to)
 			val line = Line(factFrom, factTo)
 			val drawnElement = Grammar.getTerminalElement(line)
 			drawnElements.add(drawnElement)
 
 			null
-		}
+		} ?: Point(mouseEvent.x, mouseEvent.y)
 	}
 
 	fun synthesizeGrammar() {
@@ -90,12 +87,10 @@ class Controller {
 	}
 
 	fun onCanvasMouseMove(mouseEvent: MouseEvent) {
-		if (from != null) {
+		from?.let {
 			drawer.cleanCanvas()
-			for (line in drawnLines) {
-				drawer.drawLine(line)
-			}
-			drawer.drawLine(from ?: return, Point(mouseEvent.x, mouseEvent.y))
+			drawnLines.forEach { l -> drawer.drawLine(l) }
+			drawer.drawLine(it, Point(mouseEvent.x, mouseEvent.y))
 		}
 	}
 }

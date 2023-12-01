@@ -1,15 +1,15 @@
 package hummel
 
 import java.io.File
+import java.util.*
 import javax.imageio.ImageIO
 
 const val IMAGE_SIZE: Int = 1000
+val RANDOM: Random = Random()
 
 fun main() {
 	val pointCount = 100000
-	val points = Array(pointCount) {
-		Point(randomInt(IMAGE_SIZE), randomInt(IMAGE_SIZE))
-	}
+	val points = Array(pointCount) { Point(RANDOM.nextInt(IMAGE_SIZE), RANDOM.nextInt(IMAGE_SIZE)) }
 	print("Maximin calculating...")
 	var clusters = clusterByMaximin(points)
 	val sites = Array(clusters.size) { index -> clusters[index].site }

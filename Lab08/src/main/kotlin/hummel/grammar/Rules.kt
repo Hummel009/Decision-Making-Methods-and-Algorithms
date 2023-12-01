@@ -34,11 +34,12 @@ class UpRule(
 
 	override fun transformConnect(first: Element, second: Element): Element {
 		makeSameLength(first, second)
-		first.move(0.0, second.startPosition.y/* + randomDouble(0.0, 2.0)*/)
+		first.move(0.0, second.startPosition.y)
 		return connect(first, second)
 	}
 
-	override fun isRulePositionPare(first: Element, second: Element): Boolean = second.startPosition.y - RANDOM_DELTA < first.endPosition.y
+	override fun isRulePositionPare(first: Element, second: Element): Boolean =
+		second.startPosition.y - RANDOM_DELTA < first.endPosition.y
 
 	override fun getInstance(
 		startElementType: ElementType, firstElementType: ElementType, secondElementType: ElementType
@@ -52,9 +53,11 @@ class UpRule(
 		shortestElement.resize(longestElement.length / shortestElement.length, 1.0)
 	}
 
-	private fun getLongestElement(first: Element, second: Element): Element = if (first.length > second.length) first else second
+	private fun getLongestElement(first: Element, second: Element): Element =
+		if (first.length > second.length) first else second
 
-	private fun getShortestElement(first: Element, second: Element): Element = if (first.length < second.length) first else second
+	private fun getShortestElement(first: Element, second: Element): Element =
+		if (first.length < second.length) first else second
 }
 
 class LeftRule(
@@ -76,11 +79,12 @@ class LeftRule(
 	}
 
 	override fun transformConnect(first: Element, second: Element): Element {
-		second.move(first.length/* + randomDouble(1.0, 5.0)*/, 0.0)
+		second.move(first.length, 0.0)
 		return connect(first, second)
 	}
 
-	override fun isRulePositionPare(first: Element, second: Element): Boolean = first.endPosition.x - RANDOM_DELTA < second.startPosition.x
+	override fun isRulePositionPare(first: Element, second: Element): Boolean =
+		first.endPosition.x - RANDOM_DELTA < second.startPosition.x
 
 	override fun getInstance(
 		startElementType: ElementType, firstElementType: ElementType, secondElementType: ElementType

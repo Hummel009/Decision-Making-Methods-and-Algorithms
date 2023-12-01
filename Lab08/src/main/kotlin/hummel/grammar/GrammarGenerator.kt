@@ -24,9 +24,7 @@ class GrammarGenerator(drawnElements: MutableList<Element>) {
 			}
 		}
 
-		if (resultRule == null) {
-			throw InvalidElementException()
-		}
+		resultRule ?: throw InvalidElementException()
 
 		val result = ElementType("S" + elementNumber++.toString())
 		grammar.addElementType(result)
@@ -36,18 +34,18 @@ class GrammarGenerator(drawnElements: MutableList<Element>) {
 	}
 
 	private fun searchRule(candidate: Element, elements: MutableList<Element>): RuleSearchResult? {
-		for (rule in rulesVocabulary) {
-			if (isFirstInRule(rule, candidate, elements)) {
+		rulesVocabulary.forEach {
+			if (isFirstInRule(it, candidate, elements)) {
 				elements.remove(candidate)
 				val firstElementType = candidate.elementType
 				val secondElementType = connectElementToGrammar(elements)
-				return RuleSearchResult(rule, firstElementType, secondElementType)
+				return@searchRule RuleSearchResult(it, firstElementType, secondElementType)
 			}
-			if (isSecondInRule(rule, candidate, elements)) {
+			if (isSecondInRule(it, candidate, elements)) {
 				elements.remove(candidate)
 				val firstElementType = connectElementToGrammar(elements)
 				val secondElementType = candidate.elementType
-				return RuleSearchResult(rule, firstElementType, secondElementType)
+				return@searchRule RuleSearchResult(it, firstElementType, secondElementType)
 			}
 		}
 
