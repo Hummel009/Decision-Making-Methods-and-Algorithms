@@ -2,7 +2,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 plugins {
-	id("org.jetbrains.kotlin.jvm") version "1.9.20"
+	id("org.jetbrains.kotlin.jvm") version "1.9.21"
 	id("application")
 }
 
@@ -16,14 +16,14 @@ repositories {
 val embed: Configuration by configurations.creating
 
 dependencies {
-	embed("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
+	embed("org.jetbrains.kotlin:kotlin-stdlib:1.9.21")
 	embed("io.github.pityka:hierarchical-clustering-fork:1.0-5")
 	implementation("io.github.pityka:hierarchical-clustering-fork:1.0-5")
 }
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
