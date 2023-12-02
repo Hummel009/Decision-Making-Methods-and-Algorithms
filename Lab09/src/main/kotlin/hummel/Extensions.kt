@@ -27,8 +27,8 @@ fun BufferedImage.flatten(): IntArray {
 	val reds = mutableListOf<Int>()
 	val greens = mutableListOf<Int>()
 	val blues = mutableListOf<Int>()
-	(0 until height).forEach { y ->
-		(0 until width).forEach { x ->
+	for (y in 0 until height) {
+		for (x in 0 until width) {
 			val rgb = getRGB(x, y)
 			reds.add((rgb shr 16) and 0x000000FF)
 			greens.add((rgb shr 8) and 0x000000FF)
