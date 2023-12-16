@@ -6,6 +6,7 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class Controller {
 	@FXML
 	private lateinit var grammarLabel: Label
@@ -57,22 +58,6 @@ class Controller {
 		drawnLines.clear()
 	}
 
-	fun onCanvasMouseClicked(mouseEvent: MouseEvent) {
-		from = from?.let {
-			val to = Point(mouseEvent.x, mouseEvent.y)
-			drawer.drawLine(it, to)
-			drawnLines.add(Line(it, to))
-
-			val factFrom = drawer.getFactPoint(it)
-			val factTo = drawer.getFactPoint(to)
-			val line = Line(factFrom, factTo)
-			val drawnElement = Grammar.getTerminalElement(line)
-			drawnElements.add(drawnElement)
-
-			null
-		} ?: Point(mouseEvent.x, mouseEvent.y)
-	}
-
 	fun synthesizeGrammar() {
 		val listCopy = drawnElements.map { it }
 		try {
@@ -83,14 +68,33 @@ class Controller {
 			resultLabel.text = "$e"
 			grammarLabel.text = ""
 		}
+	}
 
+	fun onCanvasMouseClicked(mouseEvent: MouseEvent) {
+		from = if (from == null) {
+			Point(mouseEvent.x, mouseEvent.y)
+		} else {
+			val to = Point(mouseEvent.x, mouseEvent.y)
+			drawer.drawLine(from ?: return, to)
+			drawnLines.add(Line(from ?: return, to))
+
+			val factFrom = drawer.getFactPoint(from ?: return)
+			val factTo = drawer.getFactPoint(to)
+			val line = Line(factFrom, factTo)
+			val drawnElement = Grammar.getTerminalElement(line)
+			drawnElements.add(drawnElement)
+
+			null
+		}
 	}
 
 	fun onCanvasMouseMove(mouseEvent: MouseEvent) {
-		from?.let {
+		if (from != null) {
 			drawer.cleanCanvas()
-			drawnLines.forEach { l -> drawer.drawLine(l) }
-			drawer.drawLine(it, Point(mouseEvent.x, mouseEvent.y))
+			for (line in drawnLines) {
+				drawer.drawLine(line)
+			}
+			drawer.drawLine(from ?: return, Point(mouseEvent.x, mouseEvent.y))
 		}
 	}
 }

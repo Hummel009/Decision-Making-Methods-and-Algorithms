@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
 
+@Suppress("unused")
 class Controller {
 	@FXML
 	private lateinit var canvas: Canvas
@@ -57,26 +58,30 @@ class Controller {
 	}
 
 	fun onCanvasMouseClicked(mouseEvent: MouseEvent) {
-		from = from?.let {
+		from = if (from == null) {
+			Point(mouseEvent.x, mouseEvent.y)
+		} else {
 			val to = Point(mouseEvent.x, mouseEvent.y)
-			drawer.drawLine(it, to)
-			drawedLines.add(Line(it, to))
+			drawer.drawLine(from ?: return, to)
+			drawedLines.add(Line(from ?: return, to))
 
-			val factFrom = drawer.getFactPoint(it)
+			val factFrom = drawer.getFactPoint(from ?: return)
 			val factTo = drawer.getFactPoint(to)
 			val line = Line(factFrom, factTo)
 			val drewElement = generator.getTerminalElement(line)
 			drawedElements.add(drewElement)
 
 			null
-		} ?: Point(mouseEvent.x, mouseEvent.y)
+		}
 	}
 
 	fun onCanvasMouseMove(mouseEvent: MouseEvent) {
-		from?.let {
+		if (from != null) {
 			drawer.cleanCanvas()
-			drawedLines.forEach { l -> drawer.drawLine(l) }
-			drawer.drawLine(it, Point(mouseEvent.x, mouseEvent.y))
+			for (line in drawedLines) {
+				drawer.drawLine(line)
+			}
+			drawer.drawLine(from ?: return, Point(mouseEvent.x, mouseEvent.y))
 		}
 	}
 }
