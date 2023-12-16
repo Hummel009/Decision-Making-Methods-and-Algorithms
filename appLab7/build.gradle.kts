@@ -10,10 +10,6 @@ plugins {
 group = "org.example"
 version = "v" + LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 
-repositories {
-	mavenCentral()
-}
-
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
