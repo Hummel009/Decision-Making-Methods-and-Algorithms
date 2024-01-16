@@ -11,6 +11,8 @@ import javafx.scene.input.MouseEvent
 
 @Suppress("unused")
 class Controller {
+	lateinit var grammarLabel: Label
+
 	@FXML
 	private lateinit var canvas: Canvas
 
