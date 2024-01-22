@@ -1,7 +1,6 @@
 package hummel.grammar
 
-@FunctionalInterface
-interface Type {
+fun interface Type {
 	fun isTerminal(): Boolean
 }
 
