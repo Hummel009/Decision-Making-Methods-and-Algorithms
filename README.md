@@ -1,4 +1,13 @@
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=code_smells)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=sqale_rating)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=security_rating)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=bugs)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=vulnerabilities)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=duplicated_lines_density)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=reliability_rating)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=alert_status)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=sqale_index)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=ncloc)](https://sonarcloud.io/summary/overall?id=Hummel009_Decision-Making-Methods-and-Algorithms)
 
 Мои лабораторные работы для BSUIR/БГУИР (белорусский государственный университет информатики и радиоэлектроники).
 
