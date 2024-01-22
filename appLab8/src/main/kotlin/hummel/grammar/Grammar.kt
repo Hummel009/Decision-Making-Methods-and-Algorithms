@@ -21,7 +21,7 @@ class Grammar {
 
 		fun getTerminalElement(line: Line): Element {
 			val elementName = getTerminalElementName(line)
-			val elementType = dictionary[elementName]!!
+			val elementType = dictionary.getValue(elementName)
 			return Element(elementType, line)
 		}
 
@@ -58,7 +58,7 @@ class Grammar {
 		if (elementType.isTerminal()) {
 			return (elementType as TerminalElementType).standardElement
 		}
-		val rule = rules[elementType.name]!!
+		val rule = rules.getValue(elementType.name)
 		return rule.transformConnect(
 			generateElement(rule.firstElementType), generateElement(rule.secondElementType)
 		)

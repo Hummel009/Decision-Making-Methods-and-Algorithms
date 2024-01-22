@@ -12,6 +12,7 @@ import java.io.File
 
 fun draw(points: List<ClassifiedPoint>, xRange: Range, yRange: Range, chartFunction: ChartFunction, index: Int) {
 	val dataset = XYSeriesCollection()
+	val resourcePath = "appLab5"
 
 	val series1 = XYSeries("Class 1 points")
 	val series2 = XYSeries("Class 2 points")
@@ -40,5 +41,5 @@ fun draw(points: List<ClassifiedPoint>, xRange: Range, yRange: Range, chartFunct
 	renderer.setSeriesShapesVisible(1, true)
 	renderer.setSeriesStroke(2, BasicStroke(2F))
 
-	ChartUtils.saveChartAsPNG(File("images/classification-chart-$index.jpg"), chart, 1000, 1000)
+	ChartUtils.saveChartAsPNG(File("$resourcePath/images/classification-chart-$index.jpg"), chart, 1000, 1000)
 }

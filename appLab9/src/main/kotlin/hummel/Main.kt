@@ -60,7 +60,7 @@ object Launcher {
 				utils()
 				return@recognize
 			}
-			val file = File(name)
+			val file = File("appLab9", name)
 			val image = file.loadImage()
 			image?.let {
 				if (it.height == imageSize.first && it.width == imageSize.second) {
@@ -96,7 +96,7 @@ object Launcher {
 
 	private fun trainNetworkCommand(path: String, output: Int) {
 		network?.let { network ->
-			val dir = File(path)
+			val dir = File("appLab9", path)
 			if (dir.isDirectory) {
 				val images = mutableListOf<BufferedImage>()
 				dir.listFiles()?.forEach {

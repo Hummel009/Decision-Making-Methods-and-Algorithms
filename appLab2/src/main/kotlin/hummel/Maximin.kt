@@ -56,7 +56,6 @@ fun clusterByMaximin(points: Array<Point>): Array<Cluster> {
 	return clusters
 }
 
-
 fun chooseNewSite(clusters: Array<Cluster>): Point? {
 	val candidateDistances = mutableListOf<Distance>()
 	for ((site, clusterPoints) in clusters) {
