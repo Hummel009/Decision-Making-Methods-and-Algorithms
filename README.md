@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Hummel009_Decision-Making-Methods-and-Algorithms&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Hummel009_Decision-Making-Methods-and-Algorithms)
+
 Мои лабораторные работы для BSUIR/БГУИР (белорусский государственный университет информатики и радиоэлектроники).
 
 Предмет - MiAPR/МиАПР (системное программирование).
