@@ -1,11 +1,12 @@
 package hummel
 
 import java.io.File
+import java.security.SecureRandom
 import java.util.*
 import javax.imageio.ImageIO
 
 const val IMAGE_SIZE: Int = 1000
-val RANDOM: Random = Random()
+val RANDOM: Random = SecureRandom()
 
 fun main() {
 	val resourcePath = "appLab2"

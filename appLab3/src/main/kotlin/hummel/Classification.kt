@@ -1,11 +1,11 @@
 package hummel
 
-import java.util.*
+import java.security.SecureRandom
 import kotlin.math.exp
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-private val random = Random()
+private val random = SecureRandom()
 
 // Генерирует массив значений типа Double в заданном диапазоне с определенным шагом.
 fun doubleArrayFromRange(start: Double, end: Double, step: Double): DoubleArray =

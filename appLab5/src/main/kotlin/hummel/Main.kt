@@ -1,8 +1,8 @@
 package hummel
 
-import java.util.*
+import java.security.SecureRandom
 
-val random: Random = Random()
+private val random = SecureRandom()
 val xRange: Range = Range(-5.0, 5.0)
 val yRange: Range = Range(-3.0, 3.0)
 

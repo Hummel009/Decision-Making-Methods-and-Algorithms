@@ -1,10 +1,10 @@
 package hummel
 
 import java.io.File
-import java.util.*
+import java.security.SecureRandom
 import javax.imageio.ImageIO
 
-private val random = Random()
+private val random = SecureRandom()
 
 fun imageToPixelArray(fileName: String): IntArray {
 	val classLoader = Perceptron::class.java.classLoader

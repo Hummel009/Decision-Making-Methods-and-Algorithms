@@ -38,6 +38,9 @@ fun draw(xValues: DoubleArray, y1Values: DoubleArray, y2Values: DoubleArray, are
 
 	// Сохранение графика как изображения PNG.
 	ChartUtils.saveChartAsPNG(
-		File("$resourcePath/images/clustering-mistake-${String.format(Locale.ROOT, "%.1f", PROBABILITY_1)}.jpg"), chart, 800, 500
+		File("$resourcePath/images/clustering-mistake-${String.format(Locale.ROOT, "%.1f", PROBABILITY_1)}.jpg"),
+		chart,
+		800,
+		500
 	)
 }

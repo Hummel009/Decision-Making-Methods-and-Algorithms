@@ -19,6 +19,8 @@ fun main() {
 	}
 }
 
+private const val networkNotExist = "The network does not exist!"
+
 object Launcher {
 	private var imageSize: Pair<Int, Int> = 6 to 6
 	private var network: BasicNetwork? = null
@@ -38,7 +40,7 @@ object Launcher {
 		network?.let {
 			println("The network is the perceptron for images ${imageSize.first}x${imageSize.second}.")
 		} ?: run {
-			println("The network does not exist!")
+			println(networkNotExist)
 		}
 	}
 
@@ -48,7 +50,7 @@ object Launcher {
 			val path = readln()
 			trainNetworkCommand(path, mode)
 		} ?: run {
-			println("The network does not exist!")
+			println(networkNotExist)
 		}
 	}
 
@@ -76,7 +78,7 @@ object Launcher {
 				println("The image does not exist!")
 			}
 		} ?: run {
-			println("The network does not exist!")
+			println(networkNotExist)
 		}
 	}
 
@@ -113,7 +115,7 @@ object Launcher {
 				println("Invalid directory!")
 			}
 		} ?: run {
-			println("The network does not exist!")
+			println(networkNotExist)
 		}
 	}
 }
