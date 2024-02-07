@@ -6,7 +6,7 @@ plugins {
 	id("application")
 }
 
-group = "hummel"
+group = "com.github.hummel"
 version = LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 
 val embed: Configuration by configurations.creating
@@ -24,7 +24,7 @@ java {
 }
 
 application {
-	mainClass = "hummel.MainKt"
+	mainClass = "com.github.hummel.dmma.lab6.MainKt"
 }
 
 tasks {
@@ -35,7 +35,7 @@ tasks {
 		manifest {
 			attributes(
 				mapOf(
-					"Main-Class" to "hummel.MainKt"
+					"Main-Class" to "com.github.hummel.dmma.lab6.MainKt"
 				)
 			)
 		}
