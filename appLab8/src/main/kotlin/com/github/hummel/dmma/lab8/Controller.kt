@@ -5,7 +5,6 @@ import javafx.fxml.FXML
 import javafx.scene.canvas.Canvas
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
-import lab8.grammar.*
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class Controller {
