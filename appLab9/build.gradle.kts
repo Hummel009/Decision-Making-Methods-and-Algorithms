@@ -13,8 +13,8 @@ val embed: Configuration by configurations.creating
 
 dependencies {
 	embed("org.jetbrains.kotlin:kotlin-stdlib:1.9.23")
-	embed("org.encog:encog-core:3.2.0")
-	implementation("org.encog:encog-core:3.2.0")
+	embed("org.encog:encog-core:3.4")
+	implementation("org.encog:encog-core:3.4")
 }
 
 java {
