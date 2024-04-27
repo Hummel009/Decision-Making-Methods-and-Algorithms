@@ -6,7 +6,7 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.control.Label
 import javafx.scene.input.MouseEvent
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate")
 class Controller {
 	@FXML
 	private lateinit var grammarLabel: Label
