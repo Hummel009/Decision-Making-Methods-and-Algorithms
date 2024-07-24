@@ -12,9 +12,9 @@ version = LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 val embed: Configuration by configurations.creating
 
 dependencies {
-	embed("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")
-	embed("io.github.pityka:hierarchical-clustering-fork:1.0-5")
-	implementation("io.github.pityka:hierarchical-clustering-fork:1.0-5")
+	embed("org.jetbrains.kotlin:kotlin-stdlib:latest.release")
+	embed("io.github.pityka:hierarchical-clustering-fork:latest.release")
+	implementation("io.github.pityka:hierarchical-clustering-fork:latest.release")
 }
 
 java {

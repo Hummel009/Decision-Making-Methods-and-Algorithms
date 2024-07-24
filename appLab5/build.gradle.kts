@@ -12,9 +12,9 @@ version = LocalDate.now().format(DateTimeFormatter.ofPattern("yy.MM.dd"))
 val embed: Configuration by configurations.creating
 
 dependencies {
-	embed("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")
-	embed("org.jfree:jfreechart:1.5.4")
-	implementation("org.jfree:jfreechart:1.5.4")
+	embed("org.jetbrains.kotlin:kotlin-stdlib:latest.release")
+	embed("org.jfree:jfreechart:latest.release")
+	implementation("org.jfree:jfreechart:latest.release")
 }
 
 java {
